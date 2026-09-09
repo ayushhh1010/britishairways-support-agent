@@ -13,6 +13,7 @@ help:
 	@echo "make all        full rebuild from raw data, including LLM pre-labelling"
 	@echo "make resume     continue the pipeline across daily free-tier quota windows"
 	@echo "make status     show pipeline progress + live per-model quota"
+	@echo "make watch      run to completion, retrying across free-tier quota windows"
 
 setup:
 	$(PY) -m pip install -r requirements.txt
@@ -59,3 +60,6 @@ status:
 
 resume:
 	@$(PY) scripts/resume.py
+
+watch:
+	@$(PY) scripts/resume.py --watch --every 30

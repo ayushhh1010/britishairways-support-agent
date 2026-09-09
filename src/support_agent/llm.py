@@ -185,7 +185,7 @@ class LLMClient:
     # tokens against a 700 ceiling. We reserve a realistic completion instead, which
     # is safe because the limiter is a soft guard and 429s are still retried.
     COMPLETION_RESERVE = 300
-    MAX_RETRY_SLEEP = 45.0  # seconds; see _post()
+    MAX_RETRY_SLEEP = 75.0  # seconds; see _post()
 
     @classmethod
     def _estimate_tokens(cls, payload: dict) -> int:
@@ -219,17 +219,24 @@ class LLMClient:
                 # the provider does not expose TPD in its rate-limit headers -- the
                 # only signal is this message. Retrying it burns the retry budget and
                 # hides the real cause behind a slow stall, so fail loudly instead.
-                if resp.status_code == 429 and "per day" in resp.text.lower():
+                body_l = resp.text.lower().replace("_", "").replace("-", "")
+                daily = any(k in body_l for k in ("per day", "perday", "requestsperday"))
+                if resp.status_code == 429 and daily:
                     raise QuotaExhausted(
                         f"daily token quota exhausted for {payload.get('model')}: "
                         f"{resp.text[:220]}"
                     )
                 retry_after = resp.headers.get("retry-after", "")
-                delay = (
-                    float(retry_after)
-                    if retry_after.replace(".", "", 1).isdigit()
-                    else 2 ** attempt + random.random()
-                )
+                if retry_after.replace(".", "", 1).isdigit():
+                    delay = float(retry_after)
+                elif resp.status_code == 503:
+                    # "Model is experiencing high demand" is transient congestion, not a
+                    # quota. Exponential backoff from a 1s base gives up after ~30s and
+                    # throws the request away; a linear 15s-per-attempt ramp actually
+                    # outlasts these spikes.
+                    delay = 15.0 * (attempt + 1) + random.random() * 5
+                else:
+                    delay = 2 ** attempt + random.random()
                 # Cap it. This provider reports the DAILY window in `retry-after`,
                 # so an uncapped honour of that header parks a worker thread for
                 # hours on what is usually a per-minute throttle.
@@ -277,12 +284,18 @@ class LLMClient:
             requested = max_tokens or lc["max_tokens"]
             ceiling = int(self.limits_for(payload["model"])["max_output"])
             payload["max_tokens"] = min(requested, ceiling)
-            if json_object:
+            no_json_mode = set(lc.get("no_json_mode_models") or [])
+            if json_object and not any(m in payload["model"] for m in no_json_mode):
                 payload["response_format"] = {"type": "json_object"}
-            # Only the gpt-oss family accepts reasoning_effort; others 400 on it.
-            # "low" cuts completion tokens ~4x with no measured accuracy loss here,
-            # which matters a lot against a tokens-per-minute cap.
-            if self.reasoning_effort and "gpt-oss" in payload["model"]:
+            # Thinking models spend part of `max_tokens` on hidden reasoning before
+            # emitting content, which silently TRUNCATES JSON when the budget is
+            # tight. Measured on gemini-3.6-flash: 669 thinking tokens against a 700
+            # budget left 27 for the answer and produced unparseable output.
+            # reasoning_effort="low" cut thinking 729 -> 99 with identical answers.
+            # Only these families accept the parameter; others reject it with a 400.
+            if self.reasoning_effort and any(
+                fam in payload["model"] for fam in ("gpt-oss", "gemini")
+            ):
                 payload["reasoning_effort"] = self.reasoning_effort
 
         key = self._key(payload)
@@ -299,7 +312,9 @@ class LLMClient:
             pt = raw.get("prompt_eval_count", 0)
             ct = raw.get("eval_count", 0)
         else:
-            content = raw["choices"][0]["message"]["content"]
+            # Thinking models can return a message with no `content` when the token
+            # budget is spent on reasoning, so this must not KeyError.
+            content = (raw["choices"][0].get("message") or {}).get("content")
             u = raw.get("usage", {}) or {}
             pt, ct = u.get("prompt_tokens", 0), u.get("completion_tokens", 0)
 
@@ -317,11 +332,14 @@ class LLMClient:
 
 
 _FENCE = re.compile(r"```(?:json)?\s*(.*?)```", re.S)
+# Gemma-family models prepend a reasoning block that itself contains braces, which
+# derails naive first-brace-to-last-brace extraction. Strip it before parsing.
+_THOUGHT = re.compile(r"<thought>.*?(?:</thought>|$)", re.S | re.I)
 
 
 def parse_json(text: str) -> dict:
     """Best-effort JSON extraction. Models wrap JSON in prose and fences constantly."""
-    text = (text or "").strip()
+    text = _THOUGHT.sub(" ", (text or "")).strip()
     if not text:
         raise LLMError("empty model response")
     for candidate in _candidates(text):
@@ -363,11 +381,34 @@ def healthcheck(client: LLMClient | None = None) -> dict:
     try:
         reply = client.chat(
             [{"role": "user", "content": "Reply with the single word: ok"}],
-            max_tokens=8,
+            max_tokens=256,  # thinking models spend a small budget entirely on reasoning
             use_cache=False,
         )
         out["status"] = "ok"
         out["sample"] = reply.strip()[:40]
     except Exception as exc:  # noqa: BLE001
         out["status"] = f"ERROR: {exc}"
+    return out
+
+
+_ITEM_OBJ = re.compile(r"\{[^{}]*\}", re.S)
+
+
+def salvage_items(text: str) -> list[dict]:
+    """Recover whatever complete objects survive in a truncated `items` array.
+
+    A batched request that gets cut off mid-JSON still contains valid results for
+    most of its tickets. Throwing the whole response away wastes both those answers
+    and one of a small daily request budget, so we parse out every well-formed
+    object and let the caller match them up by id.
+    """
+    text = _THOUGHT.sub(" ", text or "")
+    out: list[dict] = []
+    for m in _ITEM_OBJ.finditer(text):
+        try:
+            obj = json.loads(m.group(0))
+        except json.JSONDecodeError:
+            continue
+        if isinstance(obj, dict) and "id" in obj:
+            out.append(obj)
     return out

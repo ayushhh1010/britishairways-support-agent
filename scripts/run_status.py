@@ -27,7 +27,14 @@ def count_lines(p: Path) -> int:
 
 
 def probe(model: str, key: str) -> str:
-    body = {"model": model, "messages": [{"role": "user", "content": "hi"}], "max_tokens": 5}
+    """Probe with a REALISTIC payload, not a token-sized one.
+
+    A near-exhausted daily budget still has room for a 20-token "hi", so a small
+    probe reports "available" while every real ~1,600-token agent call is rejected.
+    This mirrors the actual request size so the answer means something.
+    """
+    filler = "Classify this airline customer support message carefully. " * 110  # ~1.5k tokens
+    body = {"model": model, "messages": [{"role": "user", "content": filler}], "max_tokens": 200}
     try:
         r = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",

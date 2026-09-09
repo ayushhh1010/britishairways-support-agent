@@ -200,10 +200,16 @@ def answer_rate(replies: Sequence[str], actions: Sequence[str]) -> dict:
     """
     auto = [(r or "") for r, a in zip(replies, actions) if a == "auto_handle"]
     if not auto:
-        return {"n_auto_handled": 0, "answer_rate": float("nan"), "deflection_rate": float("nan")}
-    deflected = sum(1 for r in auto if _DEFLECTION.search(r))
+        return {"n_auto_handled": 0, "answer_rate": float("nan"),
+                "deflection_rate": float("nan"), "n_empty": 0}
+    # A system that drafts no reply at all (the classification-only ablation) would
+    # otherwise score a perfect answer rate, because an empty string contains no
+    # deflection phrases. An empty reply answers nothing; count it as a non-answer.
+    empty = sum(1 for r in auto if not r.strip())
+    deflected = sum(1 for r in auto if not r.strip() or _DEFLECTION.search(r))
     return {
         "n_auto_handled": len(auto),
+        "n_empty": empty,
         "deflection_rate": round(deflected / len(auto), 4),
         "answer_rate": round(1 - deflected / len(auto), 4),
     }

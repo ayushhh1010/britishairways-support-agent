@@ -10,41 +10,41 @@ paths:
   cache: llm_cache
 
 llm:
-  provider: groq                      # groq | cerebras | ollama | openai_compatible
-  base_url: https://api.groq.com/openai/v1
-  # Provider reality (measured, see DECISIONS.md #22):
-  #   Groq free    200k tokens/DAY per model, rolling 24h. Works; needs 2 days.
-  #   Cerebras     published free limits require billing credits -> HTTP 402.
-  #   Local 8B     ~18 tok/s on a 4GB-VRAM laptop (CPU fallback) -> 20+ hours.
-  #   Mistral free 1B tokens/month, 60 RPM -> finishes in ~30 min if a key is set.
-  # Set MISTRAL_API_KEY and LLM_PROVIDER=mistral in .env to use the fast path.
-  # Generator and judge stay different model families so the judge never grades
-  # output from its own family (self-preference bias).
-  gen_model: openai/gpt-oss-120b      # OpenAI OSS  -> classify + triage + draft
-  judge_model: qwen/qwen3.6-27b       # Alibaba Qwen -> independent judge
-  judge_model_secondary: openai/gpt-oss-120b   # same family; ONLY to measure bias
-  prelabel_model_a: openai/gpt-oss-20b
-  prelabel_model_b: qwen/qwen3.6-27b
-  taxonomy_style: compact
-  reasoning_effort: low
+  provider: gemini                    # gemini | groq | cerebras | ollama | openai_compatible
+  base_url: https://generativelanguage.googleapis.com/v1beta/openai
+  # Provider reality, all measured (DECISIONS.md #22):
+  #   Groq free      200k tokens/DAY per model -> exhausted by ~120 agent calls.
+  #   Cerebras       advertised free tier needs billing credits -> HTTP 402.
+  #   Mistral        account blocked at console sign-in for this user.
+  #   Local 8B       ~18 tok/s on 4GB VRAM (CPU fallback) -> ~2 min/call.
+  #   Gemini free    ~1000+ requests/day, and requests are the binding limit here.
+  # Generator is Gemini, judge is GEMMA -- a different model family on the same key,
+  # so the judge never grades output from its own family (self-preference bias).
+  gen_model: gemini-3.5-flash-lite         # Google Gemini -> classify + triage + draft
+  judge_model: gemma-4-31b-it         # Google Gemma (different family) -> judge
+  judge_model_secondary: gemini-3.5-flash   # same family as generator; measures bias
+  prelabel_model_a: gemini-3.5-flash
+  prelabel_model_b: gemma-4-31b-it
+  # Gemma rejects response_format=json_object (HTTP 500) and prefixes answers with a
+  # <thought> block; parse_json strips it.
+  no_json_mode_models:
+    - gemma
+  taxonomy_style: terse
+  reasoning_effort: low               # gpt-oss only; ignored elsewhere
   temperature: 0.0
-  max_tokens: 600
+  max_tokens: 2000              # must cover hidden thinking tokens + the JSON
   request_timeout: 120
-  max_retries: 5
-  rpm_limit: 28
-  tpm_limit: 7000
-  concurrency: 3
+  max_retries: 8      # 503 'high demand' spikes need patience, not more requests
+  rpm_limit: 10
+  tpm_limit: 200000
+  concurrency: 2
+  group_size: 25                      # tickets/request; 220 cases -> 9 requests.
+                                      # Free tier is 20 requests/DAY per model, so
+                                      # agent(9) + ablation(9) must fit inside it.
   model_limits:
     default:
-      max_output: 2000
-      otpm: 20000
-    # qwen rejects any request whose max_tokens alone approaches OTPM=1000.
-    "qwen/qwen3.6-27b":
-      max_output: 400
-      otpm: 850
-    "qwen/qwen3.8-27b":
-      max_output: 400
-      otpm: 850
+      max_output: 8000
+      otpm: 100000
 
 sampling:
   seed: 20260909

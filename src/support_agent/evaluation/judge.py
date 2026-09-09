@@ -23,8 +23,14 @@ from typing import Sequence
 from tqdm import tqdm
 
 from ..config import load_config
-from ..llm import LLMClient, LLMError, QuotaExhausted
-from ..prompts import JUDGE_SYSTEM, JUDGE_USER, PROMPT_VERSION
+from ..llm import LLMClient, LLMError, QuotaExhausted, parse_json, salvage_items
+from ..prompts import (
+    JUDGE_BATCH_ITEM,
+    JUDGE_BATCH_SYSTEM,
+    JUDGE_SYSTEM,
+    JUDGE_USER,
+    PROMPT_VERSION,
+)
 from ..retrieve import Evidence, render_evidence
 
 DIMENSIONS = ("groundedness", "helpfulness", "tone", "safety")
@@ -93,7 +99,7 @@ class ReplyJudge:
             },
         ]
         try:
-            raw = self.client.chat_json(messages, model=self.model, max_tokens=400)
+            raw = self.client.chat_json(messages, model=self.model, max_tokens=1500)  # Gemma prepends a <thought> block; leave room for it
         except QuotaExhausted as exc:
             return JudgeVerdict(
                 thread_id, system, 1, 1, 1, 1, False, False, "", f"QUOTA:{exc}"[:200]
@@ -113,6 +119,80 @@ class ReplyJudge:
             beats_historical=bool(raw.get("beats_historical")),
             critique=str(raw.get("critique") or "").strip()[:300],
         )
+
+    def judge_group(self, jobs: list[dict]) -> list[JudgeVerdict]:
+        """Grade N (message, candidate) pairs in ONE request.
+
+        Pairs from different systems are interleaved by the caller and carry no system
+        label, so the judge cannot tell whose reply it is grading.
+        """
+        blocks = "\n".join(
+            JUDGE_BATCH_ITEM.format(
+                id=i + 1, message=j["message"],
+                evidence=render_evidence(list(j.get("evidence") or ())),
+                historical_reply=j.get("historical_reply") or "(none recorded)",
+                candidate=j["candidate"] or "(empty reply)",
+            )
+            for i, j in enumerate(jobs)
+        )
+        tail = f"\n--- END ---\nReturn the JSON object with exactly {len(jobs)} items."
+        messages = [
+            {"role": "system",
+             "content": f"[prompt {PROMPT_VERSION}]\n" + JUDGE_BATCH_SYSTEM},
+            {"role": "user", "content": blocks + tail},
+        ]
+        budget = 160 * len(jobs) + 1500
+        try:
+            text = self.client.chat(messages, model=self.model, json_object=True, max_tokens=budget)
+            try:
+                raw = parse_json(text)
+            except LLMError:
+                raw = {"items": salvage_items(text)}
+                if not raw["items"]:
+                    raise
+        except LLMError as exc:
+            tag = "QUOTA:" if isinstance(exc, QuotaExhausted) else ""
+            return [JudgeVerdict(j["thread_id"], j["system"], 1, 1, 1, 1, False, False,
+                                 "", f"{tag}{exc}"[:200]) for j in jobs]
+
+        items = raw.get("items") if isinstance(raw.get("items"), list) else []
+        by_id = {}
+        for it in items:
+            if isinstance(it, dict):
+                try:
+                    by_id[int(it.get("id"))] = it
+                except (TypeError, ValueError):
+                    continue
+        out = []
+        for i, j in enumerate(jobs):
+            it = by_id.get(i + 1)
+            if it is None and len(items) == len(jobs) and isinstance(items[i], dict):
+                it = items[i]
+            if it is None:
+                out.append(JudgeVerdict(j["thread_id"], j["system"], 1, 1, 1, 1, False, False,
+                                        "", "missing item in batch response"))
+                continue
+            out.append(JudgeVerdict(
+                thread_id=j["thread_id"], system=j["system"],
+                groundedness=_clip(it.get("groundedness")),
+                helpfulness=_clip(it.get("helpfulness")),
+                tone=_clip(it.get("tone")), safety=_clip(it.get("safety")),
+                acceptable=bool(it.get("acceptable")),
+                beats_historical=bool(it.get("beats_historical")),
+                critique=str(it.get("critique") or "").strip()[:300],
+            ))
+        return out
+
+    def judge_batched(
+        self, jobs: list[dict], *, group_size: int = 20, desc: str = "judge(grouped)"
+    ) -> list[JudgeVerdict]:
+        groups = [jobs[i : i + group_size] for i in range(0, len(jobs), group_size)]
+        workers = max(1, int(self.cfg["llm"].get("concurrency", 2)))
+        out: list[JudgeVerdict] = []
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            for res in tqdm(pool.map(self.judge_group, groups), total=len(groups), desc=desc):
+                out.extend(res)
+        return out
 
     def judge_batch(self, jobs: list[dict], desc: str = "judge") -> list[JudgeVerdict]:
         """`jobs` items: thread_id, system, message, candidate, historical_reply, evidence."""

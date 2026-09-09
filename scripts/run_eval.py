@@ -96,22 +96,27 @@ def main() -> None:
 
     # ---- agent ----
     agent = SupportAgent(client=client, retriever=retriever, taxonomy=tax, cfg=cfg)
-    outs = agent.run_batch(golden.to_dict("records"), desc="agent")
+    group_size = int(cfg["llm"].get("group_size", 15))
+    outs = agent.run_batched(golden.to_dict("records"), group_size=group_size, desc="agent")
     preds["agent"] = pd.DataFrame([o.as_dict() for o in outs])
 
     # A quota wall is not a prediction. Publishing metrics over cases the agent never
     # actually saw would silently understate it, so stop and say so instead.
-    blocked = sum(1 for o in outs if (o.error or "").startswith("QUOTA"))
+    # ANY error means the agent never actually saw that case; its row holds a
+    # fail-safe default. Scoring those as predictions silently understates the
+    # system, so refuse to publish unless explicitly overridden.
+    blocked = sum(1 for o in outs if o.error)
     if blocked and not args.allow_partial:
         done = len(outs) - blocked
         (results_dir / "run_status.json").write_text(json.dumps({
-            "stage": "agent", "completed": done, "blocked_by_quota": blocked,
+            "stage": "agent", "completed": done, "failed": blocked,
             "total": len(outs),
         }, indent=2), encoding="utf-8")
         msg = [
             "",
-            "STOPPED: provider daily token quota reached.",
+            "STOPPED: some agent cases did not complete.",
             f"  {done}/{len(outs)} agent cases completed and cached.",
+            f"  first error: {next((o.error for o in outs if o.error), '')[:160]}",
             "  Re-run `make eval` once the quota window refills; cached cases replay",
             f"  instantly and only the remaining {blocked} will hit the API.",
             f"  (Use --allow-partial to publish metrics over the {done} completed cases.)",
@@ -121,7 +126,10 @@ def main() -> None:
 
     systems = list(SYSTEMS)
     if args.ablation:
-        abl = agent.run_batch(golden.to_dict("records"), classify_only=True, desc="ablation(no-RAG)")
+        abl = agent.run_batched(
+            golden.to_dict("records"), group_size=group_size,
+            classify_only=True, desc="ablation(no-RAG)",
+        )
         preds["agent_no_retrieval"] = pd.DataFrame([o.as_dict() for o in abl])
         systems.append("agent_no_retrieval")
 
@@ -138,6 +146,10 @@ def main() -> None:
                 false_auto_handle_cost=tri_cfg["false_auto_handle_cost"],
                 false_escalate_cost=tri_cfg["false_escalate_cost"],
             ).as_dict(),
+            "answer_rate": answer_rate(
+                (p["reply"] if "reply" in p else pd.Series([""] * len(p))).tolist(),
+                p["action"].tolist(),
+            ),
         }
 
     # ---- per-case predictions ----
@@ -185,7 +197,9 @@ def main() -> None:
                 "historical_reply": hist, "evidence": ev_all[i],
             })
 
-        verdicts = judge.judge_batch(jobs, desc="judge")
+        # Shuffle so a request mixes systems; the judge sees no system labels.
+        random.Random(cfg["sampling"]["seed"]).shuffle(jobs)
+        verdicts = judge.judge_batched(jobs, group_size=20, desc="judge")
         jblocked = sum(1 for v in verdicts if (v.error or "").startswith("QUOTA"))
         if jblocked and not args.allow_partial:
             print(
@@ -250,14 +264,16 @@ def write_markdown(results: dict, path: Path, systems: list[str]) -> None:
     L += ["", "## Answer rate (of cases the system chose to auto-handle)", "",
           "A deflection here is a system claiming it can handle a case and then not "
           "answering it. The judge rubric does not punish this; that is the point.", "",
-          "| system | auto-handled | answered | deflected |", "|---|---|---|---|"]
+          "| system | auto-handled | answered | deflected | of which empty |",
+          "|---|---|---|---|---|"]
     for s in systems:
         m = results["systems"][s].get("answer_rate", {})
         if not m or not m.get("n_auto_handled"):
-            L.append(f"| `{s}` | 0 | - | - |")
+            L.append(f"| `{s}` | 0 | - | - | - |")
             continue
         L.append(
-            f"| `{s}` | {m['n_auto_handled']} | {m['answer_rate']:.1%} | {m['deflection_rate']:.1%} |"
+            f"| `{s}` | {m['n_auto_handled']} | {m['answer_rate']:.1%} "
+            f"| {m['deflection_rate']:.1%} | {m.get('n_empty', 0)} |"
         )
 
     if "judge" in results:

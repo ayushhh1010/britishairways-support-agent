@@ -222,11 +222,18 @@ def test_reply_is_truncated_to_tweet_length():
 # provider limits
 # --------------------------------------------------------------------------
 
-def test_max_tokens_clamped_to_model_ceiling():
-    """A request whose max_tokens exceeds the model's output cap is rejected outright."""
+def test_per_model_limits_fall_back_to_default():
+    """Per-model overrides exist because some providers reject a request whose
+    max_tokens alone exceeds their output-per-minute cap. Assert the lookup
+    mechanism, not one provider's numbers, which change with the config."""
     client = LLMClient()
-    limits = client.limits_for("qwen/qwen3.6-27b")
-    assert limits["max_output"] <= 800
+    default = client.limits_for("some-model-with-no-override")
+    assert default["max_output"] > 0 and default["otpm"] > 0
+
+    client.cfg["llm"]["model_limits"]["tiny-model"] = {"max_output": 400}
+    tiny = client.limits_for("tiny-model")
+    assert tiny["max_output"] == 400
+    assert tiny["otpm"] == default["otpm"]  # unspecified keys inherit the default
 
 
 def test_token_estimate_counts_prompt_and_a_bounded_completion():

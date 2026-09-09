@@ -76,13 +76,57 @@ def stages(cfg) -> list[dict]:
     ]
 
 
+def run_stages(cfg) -> int:
+    """Run outstanding stages in order. Returns 0 done, QUOTA_EXIT if quota-blocked."""
+    import os
+
+    remaining = [s for s in stages(cfg) if not s["done"]]
+    if not remaining:
+        return 0
+    env = {**os.environ, "PYTHONPATH": "src", "PYTHONIOENCODING": "utf-8"}
+    for s in remaining:
+        print(f"\n=== {s['name']}: {s['why']}", flush=True)
+        rc = subprocess.call(s["cmd"], cwd=str(ROOT), env=env)
+        if rc in (QUOTA_EXIT, 1):
+            return QUOTA_EXIT if rc == QUOTA_EXIT else rc
+    return 0
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--status", action="store_true", help="report progress and exit")
+    ap.add_argument(
+        "--watch",
+        action="store_true",
+        help="keep retrying across quota windows until the pipeline is complete",
+    )
+    ap.add_argument(
+        "--every", type=int, default=30, help="minutes to wait between retries with --watch"
+    )
     args = ap.parse_args()
 
     cfg = load_config()
     todo = stages(cfg)
+
+    if args.watch:
+        # The free tier refills on a rolling 24h window, so the pipeline finishes by
+        # waiting rather than by doing anything cleverer. Everything completed is
+        # cached, so each retry only pays for what is genuinely left.
+        import time as _time
+
+        attempt = 0
+        while True:
+            attempt += 1
+            print(f"\n########## attempt {attempt} at {_time.strftime('%Y-%m-%d %H:%M:%S')}")
+            rc = run_stages(cfg)
+            if rc == 0:
+                print("\nPipeline complete. `make repro` now replays it offline.")
+                return
+            print(
+                f"\nQuota-blocked. Sleeping {args.every} min, then continuing.\n"
+                "  Safe to leave running, or Ctrl-C and re-run later -- progress is cached."
+            )
+            _time.sleep(args.every * 60)
 
     print("PIPELINE STAGES")
     for s in todo:

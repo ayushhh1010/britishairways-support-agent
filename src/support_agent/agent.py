@@ -8,6 +8,7 @@ ablation so we can measure what retrieval actually contributes.
 from __future__ import annotations
 
 import re
+import threading
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, field
 from typing import Iterable
@@ -15,8 +16,13 @@ from typing import Iterable
 from tqdm import tqdm
 
 from .config import load_config
-from .llm import LLMClient, LLMError, QuotaExhausted
+from .llm import LLMClient, LLMError, QuotaExhausted, parse_json, salvage_items
 from .prompts import (
+    AGENT_BATCH_SYSTEM,
+    AGENT_BATCH_TICKET,
+    AGENT_BATCH_USER,
+    CLASSIFY_BATCH_SYSTEM,
+    CLASSIFY_BATCH_TICKET,
     AGENT_SYSTEM,
     AGENT_USER,
     CLASSIFY_ONLY_SYSTEM,
@@ -189,6 +195,151 @@ class SupportAgent:
             reply="",
         )
 
+    # ---------------- grouped (N tickets per request) ----------------
+
+    def _parse_group(self, rows: list[dict], evs: list, raw: dict) -> list[AgentOutput]:
+        items = raw.get("items")
+        if not isinstance(items, list):
+            items = []
+        by_id: dict[int, dict] = {}
+        for it in items:
+            if isinstance(it, dict):
+                try:
+                    by_id[int(it.get("id"))] = it
+                except (TypeError, ValueError):
+                    continue
+
+        out: list[AgentOutput] = []
+        for i, (row, ev) in enumerate(zip(rows, evs)):
+            it = by_id.get(i + 1)
+            if it is None and len(items) == len(rows) and isinstance(items[i], dict):
+                it = items[i]
+            if it is None:
+                out.append(AgentOutput(
+                    thread_id=int(row["thread_id"]), intent="service_complaint",
+                    intent_confidence=0.0, action="escalate",
+                    escalation_reason_id="unparseable",
+                    escalation_rationale="model returned no item for this ticket",
+                    reply="", n_evidence=len(ev), error="missing item in batch response",
+                ))
+                continue
+            action = _coerce_action(it.get("action"))
+            used = [int(u) for u in (it.get("evidence_used") or [])
+                    if str(u).strip().lstrip("-").isdigit()]
+            out.append(AgentOutput(
+                thread_id=int(row["thread_id"]),
+                intent=_coerce_intent(it.get("intent"), self.taxonomy),
+                intent_confidence=float(it.get("intent_confidence") or 0.0),
+                action=action,
+                escalation_reason_id=_coerce_reason(it.get("escalation_reason_id"), action),
+                escalation_rationale=str(it.get("escalation_rationale") or "").strip()[:300],
+                reply=_clean_reply(it.get("reply")),
+                evidence_used=used,
+                evidence_thread_ids=[e.thread_id for e in ev],
+                top_similarity=ev[0].score if ev else 0.0,
+                n_evidence=len(ev),
+            ))
+        return out
+
+    def run_group(self, rows: list[dict], evs: list) -> list[AgentOutput]:
+        """Handle N tickets in ONE request. See prompts.AGENT_BATCH_SYSTEM."""
+        blocks = "\n".join(
+            AGENT_BATCH_TICKET.format(
+                id=i + 1, evidence=render_evidence(ev), message=row["customer_text"]
+            )
+            for i, (row, ev) in enumerate(zip(rows, evs))
+        )
+        messages = [
+            {"role": "system",
+             "content": f"[prompt {PROMPT_VERSION}]\n" + self._system(AGENT_BATCH_SYSTEM)},
+            {"role": "user", "content": AGENT_BATCH_USER.format(blocks=blocks, n=len(rows))},
+        ]
+        # Output scales with the batch: ~150 tokens per ticket, plus room for the
+        # hidden reasoning these models emit before any content at all.
+        budget = 240 * len(rows) + 1500
+        try:
+            text = self.client.chat(messages, json_object=True, max_tokens=budget)
+            try:
+                raw = parse_json(text)
+            except LLMError:
+                # Truncated mid-array: keep the tickets that did come back whole.
+                raw = {"items": salvage_items(text)}
+                if not raw["items"]:
+                    raise
+        except QuotaExhausted as exc:
+            return [AgentOutput(
+                thread_id=int(r["thread_id"]), intent="service_complaint",
+                intent_confidence=0.0, action="escalate",
+                escalation_reason_id="unparseable", escalation_rationale="",
+                reply="", error=f"QUOTA:{exc}"[:200],
+            ) for r in rows]
+        except LLMError as exc:
+            return [AgentOutput(
+                thread_id=int(r["thread_id"]), intent="service_complaint",
+                intent_confidence=0.0, action="escalate",
+                escalation_reason_id="unparseable",
+                escalation_rationale="model call failed; defaulted to human handoff",
+                reply="", error=str(exc)[:200],
+            ) for r in rows]
+        return self._parse_group(rows, evs, raw)
+
+    def classify_group(self, rows: list[dict]) -> list[AgentOutput]:
+        """Ablation counterpart of `run_group`: same task, no evidence, no reply."""
+        blocks = "\n".join(
+            CLASSIFY_BATCH_TICKET.format(id=i + 1, message=r["customer_text"])
+            for i, r in enumerate(rows)
+        )
+        messages = [
+            {"role": "system",
+             "content": f"[prompt {PROMPT_VERSION}]\n" + self._system(CLASSIFY_BATCH_SYSTEM)},
+            {"role": "user", "content": AGENT_BATCH_USER.format(blocks=blocks, n=len(rows))},
+        ]
+        budget = 130 * len(rows) + 1200
+        try:
+            text = self.client.chat(messages, json_object=True, max_tokens=budget)
+            try:
+                raw = parse_json(text)
+            except LLMError:
+                raw = {"items": salvage_items(text)}
+                if not raw["items"]:
+                    raise
+        except LLMError as exc:
+            tag = "QUOTA:" if isinstance(exc, QuotaExhausted) else ""
+            return [AgentOutput(
+                thread_id=int(r["thread_id"]), intent="service_complaint",
+                intent_confidence=0.0, action="escalate",
+                escalation_reason_id="unparseable",
+                escalation_rationale="model call failed", reply="",
+                error=f"{tag}{exc}"[:200],
+            ) for r in rows]
+        return self._parse_group(rows, [[] for _ in rows], raw)
+
+    def run_batched(
+        self,
+        rows: Iterable[dict],
+        *,
+        group_size: int = 15,
+        classify_only: bool = False,
+        desc: str = "agent(grouped)",
+    ) -> list[AgentOutput]:
+        rows = list(rows)
+        if classify_only:
+            groups = [(rows[i : i + group_size], None) for i in range(0, len(rows), group_size)]
+            work = lambda g: self.classify_group(g[0])  # noqa: E731
+        else:
+            all_ev = self.retriever.search_batch([r["customer_text"] for r in rows])
+            groups = [
+                (rows[i : i + group_size], all_ev[i : i + group_size])
+                for i in range(0, len(rows), group_size)
+            ]
+            work = lambda g: self.run_group(g[0], g[1])  # noqa: E731
+        workers = max(1, int(self.cfg["llm"].get("concurrency", 2)))
+        out: list[AgentOutput] = []
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            for res in tqdm(pool.map(work, groups), total=len(groups), desc=desc):
+                out.extend(res)
+        return out
+
     # ---------------- batch ----------------
 
     def run_batch(
@@ -206,11 +357,27 @@ class SupportAgent:
 
         workers = int(self.cfg["llm"].get("concurrency", 4))
 
+        # Once the provider's daily budget is gone, every remaining call will fail the
+        # same way. Marching through the rest wastes ~12 minutes per retry, so the
+        # first quota refusal short-circuits the batch. Cached cases still replay.
+        quota_hit = threading.Event()
+
         def _work(pair):
             row, ev = pair
+            if quota_hit.is_set():
+                return AgentOutput(
+                    thread_id=int(row["thread_id"]), intent="service_complaint",
+                    intent_confidence=0.0, action="escalate",
+                    escalation_reason_id="unparseable", escalation_rationale="",
+                    reply="", error="QUOTA:skipped after daily budget exhausted",
+                )
             if classify_only:
-                return self.classify_only(int(row["thread_id"]), row["customer_text"])
-            return self.run_one(int(row["thread_id"]), row["customer_text"], ev)
+                out = self.classify_only(int(row["thread_id"]), row["customer_text"])
+            else:
+                out = self.run_one(int(row["thread_id"]), row["customer_text"], ev)
+            if (out.error or "").startswith("QUOTA"):
+                quota_hit.set()
+            return out
 
         out: list[AgentOutput] = []
         with ThreadPoolExecutor(max_workers=workers) as pool:

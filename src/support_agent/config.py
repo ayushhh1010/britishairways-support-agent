@@ -59,6 +59,7 @@ def load_config(path: str | Path | None = None) -> Config:
 
 def api_key(provider: str) -> str | None:
     return {
+        "gemini": os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY"),
         "cerebras": os.getenv("CEREBRAS_API_KEY"),
         "groq": os.getenv("GROQ_API_KEY"),
         "mistral": os.getenv("MISTRAL_API_KEY"),

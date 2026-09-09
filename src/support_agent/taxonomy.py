@@ -36,6 +36,25 @@ class Taxonomy:
     def get(self, name: str) -> Intent | None:
         return next((i for i in self.intents if i.name == name), None)
 
+    # The per-intent "do NOT use when" clauses repeat the same handful of boundary
+    # rules 13 times over, costing ~340 tokens. Stating each rule once costs ~90 and
+    # says the same thing. Against a 200k tokens/day cap that is ~40 extra cases/day.
+    _BOUNDARIES = (
+        "BOUNDARY RULES (apply in order):\n"
+        "- Customer asks for money (refund/compensation/reimbursement/disputed charge)"
+        " -> compensation_refund, whatever the underlying incident was.\n"
+        "- A SPECIFIC bag or item is missing/damaged -> baggage_lost_damaged."
+        " A general rules question -> baggage_policy.\n"
+        "- The site or app erroring IS the subject -> digital_technical."
+        " Otherwise classify by what the customer was trying to do.\n"
+        "- Disruption to a flight (delay/cancellation/missed connection) with no money"
+        " asked -> flight_disruption. A voluntary date change -> booking_change_cancel.\n"
+        "- A diffuse grievance with no specific actionable ask -> service_complaint.\n"
+        "- Praise, photos, retweets, banter -> praise_or_chatter."
+        " A message that is ONLY a channel request -> contact_channel_request.\n"
+        "- A genuine support question none of the above fits -> other."
+    )
+
     def render_for_prompt(self, *, style: str = "full", with_examples: bool = True) -> str:
         """Render the taxonomy for a prompt.
 
@@ -45,6 +64,10 @@ class Taxonomy:
         tokens/minute that is the difference between 3 and 8 calls per minute, and
         the boundary rules are the part that actually decides hard cases.
         """
+        if style == "terse":
+            names = "\n".join(f"- {i.name}: {i.short}" for i in self.intents)
+            return names + "\n\n" + self._BOUNDARIES
+
         lines: list[str] = []
         for i in self.intents:
             lines.append(f"- {i.name}: {i.short}")
