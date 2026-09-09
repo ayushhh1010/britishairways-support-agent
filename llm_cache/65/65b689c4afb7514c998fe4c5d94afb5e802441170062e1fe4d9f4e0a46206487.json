@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":\"digital_technical\",\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Cannot check in likely requires accessing the customer's booking\"}", "prompt_tokens": 1124, "completion_tokens": 210}

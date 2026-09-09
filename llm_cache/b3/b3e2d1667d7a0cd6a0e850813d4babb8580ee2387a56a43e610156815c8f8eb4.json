@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"compensation_refund\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"money_at_stake\",\"rationale\":\"Customer is denied a refund for a cancelled flight and is upset, involving money.\"}", "prompt_tokens": 1139, "completion_tokens": 164}

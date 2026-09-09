@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"praise_or_chatter\",\"intent_confidence\":0.98,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"escalation_rationale\":\"\",\"reply\":\"Thanks for the fun tweet! We love the creativity. Safe travels!\",\"evidence_used\":[3]}", "prompt_tokens": 1493, "completion_tokens": 121}

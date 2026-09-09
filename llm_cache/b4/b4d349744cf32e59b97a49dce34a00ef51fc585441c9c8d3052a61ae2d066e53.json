@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":\"contact_channel_request\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Assistance with staff travel tickets likely requires accessing their booking or account.\"}", "prompt_tokens": 1125, "completion_tokens": 230}

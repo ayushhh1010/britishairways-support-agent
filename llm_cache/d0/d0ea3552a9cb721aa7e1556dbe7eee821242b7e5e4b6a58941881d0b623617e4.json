@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User is expressing a complaint about service quality and delays\"}", "prompt_tokens": 1121, "completion_tokens": 124}

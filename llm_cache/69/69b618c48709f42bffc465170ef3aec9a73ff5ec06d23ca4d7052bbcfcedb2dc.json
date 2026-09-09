@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Cancelling a passenger requires accessing the booking details.\"}", "prompt_tokens": 1127, "completion_tokens": 110}

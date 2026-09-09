@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks how to reconfirm a booking, which is a check‑in/boarding query not requiring account access.\"}", "prompt_tokens": 1133, "completion_tokens": 144}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer needs help obtaining a boarding pass without printing, which is a check‑in/boarding issue and can be answered from policy.\"}", "prompt_tokens": 1126, "completion_tokens": 86}

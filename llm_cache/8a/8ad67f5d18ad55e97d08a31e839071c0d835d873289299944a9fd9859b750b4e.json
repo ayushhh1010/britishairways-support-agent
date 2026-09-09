@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"digital_technical\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User asks if website is down, fitting digital_technical and no escalation criteria met\"}", "prompt_tokens": 1117, "completion_tokens": 136}

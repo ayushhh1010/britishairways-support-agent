@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"praise_or_chatter\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Message is a compliment/excited comment, no support needed\"}", "prompt_tokens": 1138, "completion_tokens": 104}

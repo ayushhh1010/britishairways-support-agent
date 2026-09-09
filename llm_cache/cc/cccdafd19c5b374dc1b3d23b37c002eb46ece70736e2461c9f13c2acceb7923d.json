@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"compensation_refund\",\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Customer wants an official bill, requiring access to their booking details.\"}", "prompt_tokens": 1142, "completion_tokens": 268}

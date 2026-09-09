@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"praise_or_chatter\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The message is a compliment about staff care, fitting praise_or_chatter.\"}", "prompt_tokens": 1153, "completion_tokens": 86}

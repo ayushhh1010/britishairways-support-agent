@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"compensation_refund\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"money_at_stake\",\"rationale\":\"Customer is requesting a refund that has not been received, involving money.\"}", "prompt_tokens": 1136, "completion_tokens": 129}

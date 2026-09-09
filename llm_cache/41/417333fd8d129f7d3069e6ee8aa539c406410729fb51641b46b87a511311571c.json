@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"loyalty_avios\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks about Avios cabin bonus policy, which is a loyalty query with no money or account access needed.\"}", "prompt_tokens": 1132, "completion_tokens": 98}

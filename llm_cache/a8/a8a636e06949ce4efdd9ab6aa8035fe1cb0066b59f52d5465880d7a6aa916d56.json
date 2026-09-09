@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"compensation_refund\",\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"money_at_stake\",\"rationale\":\"Customer complains about staff and mentions a £70 charge, indicating a complaint with a monetary component.\"}", "prompt_tokens": 1128, "completion_tokens": 219}

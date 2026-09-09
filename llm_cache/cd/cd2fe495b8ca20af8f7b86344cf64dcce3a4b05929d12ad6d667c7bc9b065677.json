@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks how to obtain boarding passes before check‑in, which is a check‑in/boarding query.\"}", "prompt_tokens": 1158, "completion_tokens": 95}

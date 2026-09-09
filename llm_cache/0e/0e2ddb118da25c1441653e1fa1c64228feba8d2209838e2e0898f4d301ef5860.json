@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"loyalty_avios\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks about pending Avios posting, which is a loyalty_avios query and can be answered with standard policy.\"}", "prompt_tokens": 1125, "completion_tokens": 130}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"flight_disruption\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User expresses frustration about delayed information, fitting a service complaint but could also be a flight disruption comment\"}", "prompt_tokens": 1126, "completion_tokens": 170}

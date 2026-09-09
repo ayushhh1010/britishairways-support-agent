@@ -1,0 +1,286 @@
+# Intent taxonomy for British_Airways, induced from the data (see DECISIONS.md #5-#7).
+#
+# Provenance: TF-IDF + KMeans(k=28) over 3,600 first-contact customer messages
+# (scripts/cluster_messages.py -> reports/results/clusters.json), then hand-merged
+# into operationally distinct intents. Two clusters were catch-alls (n=898 generic
+# "flight/help", n=405 photo/marketing chatter) and were split/absorbed by hand --
+# KMeans centroids are not intents.
+#
+# Design rule: two messages share an intent only if a support agent would take the
+# SAME NEXT ACTION. Intents that differ only in wording were merged.
+
+version: 1
+brand: British_Airways
+
+intents:
+  - name: flight_disruption
+    short: Delay, cancellation, missed connection, diversion
+    definition: >
+      Customer reports or asks about a flight not operating as scheduled -- delayed,
+      cancelled, diverted, or a missed/at-risk connection -- and wants status,
+      explanation, or rebooking. The disruption itself is the subject.
+    includes:
+      - Asking why a specific flight is delayed or when it will leave
+      - Stranded at an airport with no information
+      - Missed connection because an inbound flight was late
+      - Requesting rebooking onto another flight because of disruption
+    excludes:
+      - Asking for money for a past disruption -> compensation_refund
+      - Voluntarily changing dates on an operating flight -> booking_change_cancel
+    examples:
+      - "flight BA6241 is delayed indefinitely with no explanation."
+      - "hi. what's happening with the cancelled flight BA7017 from Bristol?"
+
+  - name: compensation_refund
+    short: Money owed back - EU261, refunds, overcharges
+    definition: >
+      Customer is pursuing money: statutory delay compensation, a refund for a
+      cancelled or changed ticket, reimbursement of expenses, or a disputed charge.
+      The defining feature is a financial claim, not the incident behind it.
+    includes:
+      - EU261 / EC261 delay compensation claims and their status
+      - Refund not received or taking too long
+      - Charged twice, overcharged for bags or seats
+      - Expense reimbursement for hotels/meals during disruption
+    excludes:
+      - Reporting a live disruption with no money asked for -> flight_disruption
+      - Asking what the baggage fee is -> baggage_policy
+    examples:
+      - "please explain why I am still waiting for any compensation for my cancelled flight due to your error in may?!?!"
+      - "can you pls give me your email as I have been overcharged on the extra baggage allowance-"
+
+  - name: baggage_lost_damaged
+    short: Bag missing, delayed, damaged, or item left on board
+    definition: >
+      A specific physical bag or item belonging to this customer is missing, delayed,
+      damaged, or was left behind. Requires a property-irregularity file, not policy.
+    includes:
+      - Bag did not arrive at the destination
+      - Damaged suitcase on arrival
+      - Item left in the seat pocket / lost property
+      - Chasing an existing baggage claim reference
+    excludes:
+      - Asking what size or weight is allowed -> baggage_policy
+    examples:
+      - "just landed in Lisbon on flight BA0502 and left by Kindle on board could customer services DM me please?"
+      - "BA 1312 seat 12 E left purse in seat in front xx please help her"
+
+  - name: baggage_policy
+    short: Allowance, dimensions, restricted items, extra-bag rules
+    definition: >
+      A general question about baggage rules that is answerable from published policy
+      without touching the customer's booking.
+    includes:
+      - Hand luggage size/weight limits
+      - Whether a specific item may be carried (liquids, food, sports gear, electronics)
+      - Checked allowance for a route or cabin
+      - Cost of an additional bag
+    excludes:
+      - A bag that is already lost or damaged -> baggage_lost_damaged
+      - Disputing a bag charge already paid -> compensation_refund
+    examples:
+      - "hi, am I able to take a unopened kitchen hand blender on board with my hand luggage?"
+      - "How can we tell if we have checked in with baggage allowance?"
+
+  - name: booking_change_cancel
+    short: Change, cancel, upgrade, or manage an existing/new booking
+    definition: >
+      Customer wants to alter or create a reservation: change dates or routes, cancel,
+      add a passenger, upgrade with cash or Avios, or get help completing a booking.
+    includes:
+      - Changing a flight date or destination
+      - Cancelling a booking voluntarily
+      - Upgrade requests and upgrade eligibility
+      - Help navigating Manage My Booking to make a change
+    excludes:
+      - Manage My Booking throwing an error page -> digital_technical
+      - Rebooking forced by a cancellation -> flight_disruption
+    examples:
+      - "I am wanting to cancel my booking today with booking reference as follow : Booking reference 31863504 Please help"
+      - "help I need to change a flight but I can't"
+
+  - name: seating
+    short: Seat selection, seats together, seat change, downgrade
+    definition: >
+      Anything about which seat the customer occupies -- selecting, changing, paying
+      for, or being separated from travel companions.
+    includes:
+      - Cannot select or change a seat
+      - Family/party not seated together
+      - Paid-seat questions and refunds of seat fees
+      - Downgrade concerns
+    excludes:
+      - Cabin upgrade requests -> booking_change_cancel
+      - Item left in a seat -> baggage_lost_damaged
+    examples:
+      - "I can't change my seat in the app or website, it just recycles to a previous page"
+      - "We can't sit together for our flight as no seats, I can't check in, but you're still selling seats."
+
+  - name: checkin_boarding
+    short: Online check-in, boarding pass, bag drop, airport process
+    definition: >
+      Problems or questions about the check-in and boarding process itself, including
+      online check-in failures, boarding passes, and airport procedure/timing.
+    includes:
+      - Online check-in refuses to complete, with or without an error
+      - Boarding pass not received or not loading
+      - Bag drop and airport desk timings
+      - Check-in window questions (e.g. status-based early check-in)
+    excludes:
+      - Check-in blocked specifically because of seating -> seating
+      - A site-wide outage affecting everything -> digital_technical
+    examples:
+      - "your online check-in will not allow me to check-in online, with no explanation?"
+      - "can you tell me why. Can't online check in for flight ba2553 from Heraklion tomorrow?"
+
+  - name: loyalty_avios
+    short: Executive Club, Avios, tier points, membership
+    definition: >
+      Questions about the loyalty programme: earning/spending Avios, tier points and
+      status, Executive Club account access, and missing points.
+    includes:
+      - Avios missing from an account after a flight
+      - Difference between Avios and Tier Points
+      - Executive Club login or membership number problems
+      - Redeeming Avios for flights or upgrades
+    excludes:
+      - Paying cash to upgrade -> booking_change_cancel
+    examples:
+      - "what are Tier Points and what is the difference between Avios & Tier Points?"
+      - "I have 76,947 Avios points, transferred to my BA Executive Club account, but apparently I have no Tier points."
+
+  - name: digital_technical
+    short: Website or app is broken
+    definition: >
+      The BA website or app is malfunctioning -- crashes, error pages, payment
+      failures, infinite loops. The customer's underlying goal is secondary; the
+      fault is the subject.
+    includes:
+      - Website crashes during booking or payment
+      - App will not load or log in
+      - Error page from Manage My Booking
+      - Payment declined by the site, not the bank
+    excludes:
+      - A working site the customer just needs help using -> the goal's own intent
+    examples:
+      - "trying to book flight on the website and only getting as far as getting a price and the website crashes. Tried 2 devices."
+      - "is there a problem with your website? Been trying to book flights for over an hour on laptop & your app, neither working"
+
+  - name: contact_channel_request
+    short: How do I reach you - DM, phone, email
+    definition: >
+      The message's entire content is a request to move to another channel or to
+      obtain contact details. No underlying problem is described in enough detail
+      to act on.
+    includes:
+      - "Can I DM you?"
+      - Asking for a phone number or email address
+      - Asking for support in another language
+    excludes:
+      - A message that states a problem AND asks to DM -> the problem's intent
+    examples:
+      - "hi, can i DM you with a baggage enquiry please"
+      - "what's your support phone number."
+
+  - name: service_complaint
+    short: Complaint about service quality, staff, food, or comms
+    definition: >
+      Customer expresses dissatisfaction with the experience -- staff conduct, cabin
+      condition, catering, communication, call-centre quality -- without a specific
+      actionable request that fits another intent.
+    includes:
+      - Rudeness or poor staff conduct
+      - Catering or cabin quality complaints
+      - Blanket statements that service is terrible, with no specific ask
+      - Complaints about lack of communication generally
+    excludes:
+      - A complaint that explicitly demands money -> compensation_refund
+      - A complaint whose subject is a delay -> flight_disruption
+    examples:
+      - "Customer service has been horrific! Please have someone contact us. We are getting nowhere!"
+      - "so dislike your call centre in India since you've moved it there the service is shocking"
+
+  - name: praise_or_chatter
+    short: Compliments, photos, marketing, and other non-support content
+    definition: >
+      Content requiring no support action -- praise for crew or service, aviation
+      enthusiast photos, retweets of BA marketing, jokes, and general commentary.
+      Praise and chatter are merged because the handling is identical: a friendly
+      acknowledgement, never an escalation. See DECISIONS.md #7.
+    includes:
+      - Thanking crew or praising a flight
+      - "#avgeek aircraft photography"
+      - Retweets of BA promotions and route announcements
+      - Off-topic banter and jokes
+    excludes:
+      - Praise that also contains a question -> the question's intent
+    examples:
+      - "Great flight home with and typical great service from all the crew on BA34. Cheers"
+      - "G-VIIA out of LHR to HOU this afternoon #OxfordshireSkies #BA 21 yrs old and still going strong"
+
+  - name: other
+    short: A real support request no other intent covers
+    definition: >
+      A genuine support question that does not fit any intent above -- typically an
+      onboard product or amenity question, a route/network enquiry, lounge access,
+      an invoice or receipt request, or a codeshare administrative question. Added
+      during annotation after ~5% of the golden set proved unclassifiable; forcing
+      these into service_complaint would have corrupted that class. See DECISIONS.md #23.
+    includes:
+      - Onboard amenity questions (power sockets, catering, entertainment)
+      - Route and schedule availability enquiries not tied to a booking
+      - Lounge access and airport facility questions
+      - Invoice, receipt, or documentation requests
+      - Codeshare administration that is not seating, baggage, or check-in
+    excludes:
+      - Anything that clearly fits one of the twelve intents above
+      - Non-support content -> praise_or_chatter
+    examples:
+      - "are there USB ports to charge your phone on your long haul flights?"
+      - "how do I get a receipt for a seat selection I made to a current booking?"
+
+# ---------------------------------------------------------------------------
+# Escalation policy. Applied INDEPENDENTLY of intent: intent says what it is,
+# triage says who should handle it. Some intents are almost always escalated
+# (compensation_refund) but the message decides, not the label.
+# ---------------------------------------------------------------------------
+triage:
+  escalate_if_any:
+    - id: needs_account_access
+      rule: >
+        Resolving it requires reading or changing this customer's booking, ticket,
+        or Executive Club account (PNR, ticket number, membership number present or
+        required).
+    - id: money_at_stake
+      rule: >
+        The customer is asking for money -- compensation, refund, reimbursement, or
+        reversal of a charge. Never auto-promise money.
+    - id: legal_safety_medical
+      rule: >
+        Statutory claims (EU261), threats of legal action, media/regulator contact,
+        discrimination, safety, medical, or accessibility issues.
+    - id: property_irregularity
+      rule: >
+        A specific bag or item is lost, delayed, or damaged and needs a file
+        reference or physical search.
+    - id: time_critical
+      rule: >
+        The customer is travelling now or within ~24h and is blocked -- stranded,
+        cannot check in for an imminent flight, needs same-day rebooking.
+    - id: high_distress
+      rule: >
+        Severe distress, abuse, or a vulnerable-passenger situation (unaccompanied
+        minor, bereavement, disability) where a templated reply would cause harm.
+    - id: unparseable
+      rule: >
+        The request cannot be understood well enough to answer safely, or is not in
+        English.
+
+  auto_handle_if_all:
+    - The answer comes from published policy or public flight information only.
+    - No booking, ticket, or account lookup is needed.
+    - No money, legal claim, or physical property is involved.
+    - A wrong answer would be an inconvenience, not a harm or a cost.
+
+  # Default when the two sets conflict or neither clearly applies.
+  default: escalate

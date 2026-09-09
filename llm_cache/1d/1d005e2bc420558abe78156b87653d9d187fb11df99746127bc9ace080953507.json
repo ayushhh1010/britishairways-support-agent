@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":\"checkin_boarding\",\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks about flight communication/status, which is a public flight information query.\"}", "prompt_tokens": 1123, "completion_tokens": 224}

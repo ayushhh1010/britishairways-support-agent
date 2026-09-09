@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"praise_or_chatter\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The message is a non‑support comment about a new route, fitting the praise_or_chatter intent.\"}", "prompt_tokens": 1131, "completion_tokens": 132}

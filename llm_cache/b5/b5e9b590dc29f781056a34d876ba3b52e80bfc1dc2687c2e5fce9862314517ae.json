@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"loyalty_avios\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Question about using Avios after membership card expiry fits loyalty_avios and requires no account lookup or money handling.\"}", "prompt_tokens": 1137, "completion_tokens": 116}

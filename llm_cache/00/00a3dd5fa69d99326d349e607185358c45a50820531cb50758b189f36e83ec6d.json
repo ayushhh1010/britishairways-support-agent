@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":\"seating\",\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User cannot check in or select a seat, which maps to checkin_boarding; no account or money issues.\"}", "prompt_tokens": 1120, "completion_tokens": 174}

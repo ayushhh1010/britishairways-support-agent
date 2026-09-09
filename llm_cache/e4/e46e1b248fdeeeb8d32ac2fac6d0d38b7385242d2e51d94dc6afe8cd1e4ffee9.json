@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"compensation_refund\",\"second_choice\":\"flight_disruption\",\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"money_at_stake\",\"rationale\":\"Customer requests a refund for a cancelled flight, involving money.\"}", "prompt_tokens": 1137, "completion_tokens": 146}

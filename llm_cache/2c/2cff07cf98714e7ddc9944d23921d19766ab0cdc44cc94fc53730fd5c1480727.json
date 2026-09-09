@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"praise_or_chatter\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Message is non‑support content with no question or request.\"}", "prompt_tokens": 1142, "completion_tokens": 97}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"baggage_policy\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer complains about price difference and bag refusal, could be a service complaint or a baggage policy question.\"}", "prompt_tokens": 1133, "completion_tokens": 273}

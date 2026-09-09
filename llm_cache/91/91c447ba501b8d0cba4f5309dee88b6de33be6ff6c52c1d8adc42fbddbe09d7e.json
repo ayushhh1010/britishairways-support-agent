@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"loyalty_avios\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Points transfer issue requires accessing the customer's Executive Club account\"}", "prompt_tokens": 1131, "completion_tokens": 110}

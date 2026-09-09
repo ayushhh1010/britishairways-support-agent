@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_lost_damaged\",\"second_choice\":\"flight_disruption\",\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"property_irregularity\",\"rationale\":\"The customer reports a lost bag requiring a specific case file.\"}", "prompt_tokens": 1125, "completion_tokens": 139}

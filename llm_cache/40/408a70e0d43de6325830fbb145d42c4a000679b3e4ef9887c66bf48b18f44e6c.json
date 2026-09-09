@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":\"flight_disruption\",\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks to change flight within same terminal, a booking change request not requiring account lookup.\"}", "prompt_tokens": 1129, "completion_tokens": 236}

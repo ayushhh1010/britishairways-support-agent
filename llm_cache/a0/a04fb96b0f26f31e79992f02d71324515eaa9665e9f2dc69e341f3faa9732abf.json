@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"legal_safety_medical\",\"rationale\":\"Customer reports a 24‑hour delay and expresses frustration, which may involve EU261 compensation claims.\"}", "prompt_tokens": 1117, "completion_tokens": 297}

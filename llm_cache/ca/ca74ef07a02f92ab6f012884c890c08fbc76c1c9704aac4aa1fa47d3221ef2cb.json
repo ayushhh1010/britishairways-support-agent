@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_policy\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks if bag can be through‑checked on separate bookings, a policy question.\"}", "prompt_tokens": 1139, "completion_tokens": 104}

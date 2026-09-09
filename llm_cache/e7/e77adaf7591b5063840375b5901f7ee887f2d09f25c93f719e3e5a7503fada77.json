@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_lost_damaged\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"property_irregularity\",\"rationale\":\"Customer reports a specific lost luggage requiring a file reference\"}", "prompt_tokens": 1170, "completion_tokens": 100}

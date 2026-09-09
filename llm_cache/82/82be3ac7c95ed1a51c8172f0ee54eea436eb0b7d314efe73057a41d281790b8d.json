@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":null,\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"unparseable\",\"rationale\":\"The request asks for schedule availability, which doesn't match any defined intent\"}", "prompt_tokens": 1124, "completion_tokens": 297}

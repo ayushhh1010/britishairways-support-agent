@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"seating\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The message concerns seats not matching the booking, but also expresses a complaint about service quality.\"}", "prompt_tokens": 1132, "completion_tokens": 228}

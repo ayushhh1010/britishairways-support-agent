@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":\"seating\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The message mentions inability to check‑in online and frustration about seat selection, fitting both check‑in/boarding and seating intents.\"}", "prompt_tokens": 1126, "completion_tokens": 163}

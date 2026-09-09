@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The message is a clear service complaint about boarding policy with no money, account, or urgent issues.\"}", "prompt_tokens": 1133, "completion_tokens": 119}

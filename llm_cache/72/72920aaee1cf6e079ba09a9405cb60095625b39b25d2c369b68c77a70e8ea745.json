@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"digital_technical\",\"second_choice\":\"baggage_policy\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":null,\"rationale\":\"The issue could be a site error (digital_technical) or a question about bag fees (baggage_policy), so it's ambiguous and should be escalated.\"}", "prompt_tokens": 1129, "completion_tokens": 338}

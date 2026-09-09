@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"seating\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The message is a complaint about seat‑booking charges and difficulty sitting together, but could also be classified as a seating issue.\"}", "prompt_tokens": 1151, "completion_tokens": 202}

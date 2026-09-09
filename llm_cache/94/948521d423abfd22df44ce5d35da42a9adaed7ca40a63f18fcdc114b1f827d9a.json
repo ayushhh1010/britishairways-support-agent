@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"time_critical\",\"rationale\":\"Customer's flight was cancelled at the airport and they need immediate assistance.\"}", "prompt_tokens": 1137, "completion_tokens": 134}

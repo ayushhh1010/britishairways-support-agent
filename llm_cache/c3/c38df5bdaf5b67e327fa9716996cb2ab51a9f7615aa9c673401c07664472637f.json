@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"praise_or_chatter\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer is giving positive feedback about a pilot, which is praise.\"}", "prompt_tokens": 1136, "completion_tokens": 87}

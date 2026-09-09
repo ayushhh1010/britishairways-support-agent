@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"intent_confidence\":0.96,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"escalation_rationale\":\"\",\"reply\":\"Sorry you’re having trouble checking in. We’re not aware of a system issue – please try again later or check‑in at the airport.\",\"evidence_used\":[2,3]}", "prompt_tokens": 1590, "completion_tokens": 259}

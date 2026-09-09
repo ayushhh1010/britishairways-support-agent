@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer complains about lack of gluten‑free/vegetarian meal option, which fits service_complaint and can be answered with policy info without account lookup.\"}", "prompt_tokens": 1152, "completion_tokens": 314}

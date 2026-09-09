@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks for flight status update, which is handled via standard policy info without needing account access.\"}", "prompt_tokens": 1126, "completion_tokens": 133}

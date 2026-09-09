@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"seating\",\"second_choice\":\"checkin_boarding\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Seat mismatch likely requires accessing the booking to verify allocation\"}", "prompt_tokens": 1142, "completion_tokens": 192}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_lost_damaged\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer is upset about a delayed bag, primary intent is lost/delayed baggage, but also a service complaint.\"}", "prompt_tokens": 1134, "completion_tokens": 174}

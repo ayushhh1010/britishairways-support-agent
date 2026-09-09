@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Answer is a policy question about credit‑card requirement at check‑in, no account or money involved.\"}", "prompt_tokens": 1128, "completion_tokens": 130}

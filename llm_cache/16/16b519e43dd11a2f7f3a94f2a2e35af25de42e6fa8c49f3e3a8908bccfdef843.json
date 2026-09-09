@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":\"seating\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Issue involves boarding pass details and seat allocation requiring access to the booking.\"}", "prompt_tokens": 1154, "completion_tokens": 159}

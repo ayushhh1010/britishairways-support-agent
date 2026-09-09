@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"time_critical\",\"rationale\":\"Customer missed connections and is likely stranded, requiring urgent assistance\"}", "prompt_tokens": 1136, "completion_tokens": 186}

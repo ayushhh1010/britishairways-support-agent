@@ -1,0 +1,21 @@
+# Core data
+pandas==3.0.5
+numpy==2.4.6
+pyarrow==25.0.1
+scikit-learn==1.9.0
+
+# Config / IO
+PyYAML>=6.0
+python-dotenv>=1.0
+requests>=2.31
+tqdm>=4.66
+
+# Analysis
+scipy>=1.11
+langdetect>=1.0.9
+
+# Dataset download (optional, only for `make data`)
+kaggle>=1.6
+
+# Testing
+pytest>=8.0

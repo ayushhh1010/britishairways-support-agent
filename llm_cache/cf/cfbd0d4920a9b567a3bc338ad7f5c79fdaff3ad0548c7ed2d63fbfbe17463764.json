@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"digital_technical\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User reports app UI issue showing gate numbers, fits digital_technical and requires no account or money handling.\"}", "prompt_tokens": 1124, "completion_tokens": 116}

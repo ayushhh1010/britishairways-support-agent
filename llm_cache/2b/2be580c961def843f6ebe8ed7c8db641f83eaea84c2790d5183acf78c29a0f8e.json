@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":null,\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"unparseable\",\"rationale\":\"The request asks for schedule info not covered by defined intents, making intent unclear\"}", "prompt_tokens": 1115, "completion_tokens": 226}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_policy\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks about check‑in luggage allowance, which is a baggage policy query and can be answered from published rules without account access.\"}", "prompt_tokens": 1136, "completion_tokens": 96}

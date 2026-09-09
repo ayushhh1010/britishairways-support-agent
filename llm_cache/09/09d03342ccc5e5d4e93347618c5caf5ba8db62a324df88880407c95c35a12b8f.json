@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks for status update on a specific flight, which can be answered from public flight information.\"}", "prompt_tokens": 1131, "completion_tokens": 155}

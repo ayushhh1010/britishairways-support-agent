@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Customer wants to cancel a specific flight segment, requiring access to their booking.\"}", "prompt_tokens": 1146, "completion_tokens": 133}

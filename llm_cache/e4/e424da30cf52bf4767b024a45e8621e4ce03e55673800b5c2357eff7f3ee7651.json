@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"unparseable\",\"rationale\":\"The query about USB ports doesn't match any defined intent, so it is ambiguous and needs escalation.\"}", "prompt_tokens": 1131, "completion_tokens": 282}

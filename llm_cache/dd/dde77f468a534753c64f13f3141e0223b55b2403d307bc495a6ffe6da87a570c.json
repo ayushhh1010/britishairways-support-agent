@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"seating\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Seat issue likely requires checking the customer's booking details\"}", "prompt_tokens": 1143, "completion_tokens": 168}

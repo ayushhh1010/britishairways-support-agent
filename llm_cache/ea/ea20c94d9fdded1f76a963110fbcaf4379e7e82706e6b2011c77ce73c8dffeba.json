@@ -1,0 +1,1 @@
+{"content": "{\n  \"intent\": \"praise_or_chatter\",\n  \"second_choice\": null,\n  \"ambiguous\": false,\n  \"action\": \"auto_handle\",\n  \"escalation_reason_id\": null,\n  \"rationale\": \"The message is a compliment and social media-style shout-out with no support request or question.\"\n}", "prompt_tokens": 1127, "completion_tokens": 75}

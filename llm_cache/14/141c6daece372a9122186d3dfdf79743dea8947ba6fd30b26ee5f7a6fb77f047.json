@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer complains about broken toilet, a service issue without money or account access.\"}", "prompt_tokens": 1122, "completion_tokens": 126}

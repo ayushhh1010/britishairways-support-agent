@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"digital_technical\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The complaint is about the app repeatedly asking for a password, fitting digital_technical but could also be seen as a service complaint.\"}", "prompt_tokens": 1122, "completion_tokens": 264}

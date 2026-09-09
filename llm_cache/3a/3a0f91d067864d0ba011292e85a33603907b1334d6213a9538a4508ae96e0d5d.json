@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User reports lounge seating condition, a clear service complaint requiring a standard response.\"}", "prompt_tokens": 1136, "completion_tokens": 252}

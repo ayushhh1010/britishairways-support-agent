@@ -1,0 +1,92 @@
+{
+  "pre_label_model": "openai/gpt-oss-120b",
+  "n_paired": 219,
+  "intent_all": {
+    "n": 219,
+    "raw_agreement": 0.7626,
+    "raw_agreement_ci95": [
+      0.7032,
+      0.8219
+    ],
+    "cohens_kappa": 0.7353,
+    "kappa_interpretation": "substantial"
+  },
+  "intent_excluding_other": {
+    "n": 208,
+    "raw_agreement": 0.8029,
+    "raw_agreement_ci95": [
+      0.7452,
+      0.8558
+    ],
+    "cohens_kappa": 0.7786,
+    "kappa_interpretation": "substantial"
+  },
+  "action": {
+    "n": 219,
+    "raw_agreement": 0.7443,
+    "raw_agreement_ci95": [
+      0.6895,
+      0.7991
+    ],
+    "cohens_kappa": 0.482,
+    "kappa_interpretation": "moderate"
+  },
+  "action_mismatches": {
+    "total": 56,
+    "human_escalate_model_auto": 48,
+    "human_auto_model_escalate": 8
+  },
+  "top_intent_confusions": [
+    {
+      "human": "flight_disruption",
+      "model": "service_complaint",
+      "n": 7
+    },
+    {
+      "human": "checkin_boarding",
+      "model": "digital_technical",
+      "n": 4
+    },
+    {
+      "human": "praise_or_chatter",
+      "model": "service_complaint",
+      "n": 4
+    },
+    {
+      "human": "other",
+      "model": "checkin_boarding",
+      "n": 4
+    },
+    {
+      "human": "digital_technical",
+      "model": "booking_change_cancel",
+      "n": 3
+    },
+    {
+      "human": "seating",
+      "model": "service_complaint",
+      "n": 2
+    },
+    {
+      "human": "loyalty_avios",
+      "model": "service_complaint",
+      "n": 2
+    },
+    {
+      "human": "other",
+      "model": "service_complaint",
+      "n": 2
+    },
+    {
+      "human": "booking_change_cancel",
+      "model": "flight_disruption",
+      "n": 2
+    },
+    {
+      "human": "booking_change_cancel",
+      "model": "service_complaint",
+      "n": 2
+    }
+  ],
+  "note": "Author labels written blind, before any pre-label was inspected. Pre-labels use a different prompt with no retrieval; these figures indicate task difficulty, not agent performance."
+}

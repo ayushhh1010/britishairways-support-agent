@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer is complaining about inability to check‑in online due to residency status.\"}", "prompt_tokens": 1134, "completion_tokens": 170}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":\"digital_technical\",\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"User cannot change flight date and receives an error, requiring account access to resolve.\"}", "prompt_tokens": 1139, "completion_tokens": 144}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_policy\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks about cost for a child's pushchair, which is a baggage allowance question.\"}", "prompt_tokens": 1116, "completion_tokens": 81}

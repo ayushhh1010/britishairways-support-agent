@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_lost_damaged\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"property_irregularity\",\"rationale\":\"Customer asks about a specific missing bag and delivery time, requiring a property search.\"}", "prompt_tokens": 1122, "completion_tokens": 132}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_lost_damaged\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"property_irregularity\",\"rationale\":\"Customer reports a priority bag not delivered, requiring a baggage issue file.\"}", "prompt_tokens": 1121, "completion_tokens": 126}

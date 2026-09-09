@@ -1,0 +1,1 @@
+{"content": "{\n  \"groundedness\": 5,\n  \"helpfulness\": 4,\n  \"tone\": 5,\n  \"safety\": 2,\n  \"acceptable\": false,\n  \"beats_historical\": false,\n  \"critique\": \"Requests sensitive personal data (date of birth) in a public social media reply, which is a safety violation.\"\n}", "prompt_tokens": 1042, "completion_tokens": 86}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer complains about lounge staff behavior, fitting service_complaint and no escalation triggers.\"}", "prompt_tokens": 1134, "completion_tokens": 161}

@@ -1,0 +1,35 @@
+{
+  "total": 220,
+  "candidates_available": 220,
+  "dropped_unadjudicated": 0,
+  "by_source": {
+    "author_adjudicated": 220
+  },
+  "intent_distribution": {
+    "praise_or_chatter": 40,
+    "service_complaint": 30,
+    "flight_disruption": 24,
+    "digital_technical": 21,
+    "booking_change_cancel": 20,
+    "checkin_boarding": 19,
+    "compensation_refund": 12,
+    "baggage_lost_damaged": 12,
+    "other": 11,
+    "seating": 11,
+    "loyalty_avios": 10,
+    "baggage_policy": 9,
+    "contact_channel_request": 1
+  },
+  "action_distribution": {
+    "auto_handle": 114,
+    "escalate": 106
+  },
+  "escalation_reasons": {
+    "needs_account_access": 52,
+    "time_critical": 19,
+    "money_at_stake": 13,
+    "property_irregularity": 10,
+    "high_distress": 8,
+    "legal_safety_medical": 4
+  }
+}

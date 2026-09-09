@@ -1,0 +1,17 @@
+{
+  "n": 220,
+  "model_a": "openai/gpt-oss-20b",
+  "model_b": "qwen/qwen3.6-27b",
+  "batch_size": 8,
+  "n_with_both_intents": 0,
+  "intent_agreement": null,
+  "action_agreement": null,
+  "needs_adjudication": 220,
+  "flagged_ambiguous": 220,
+  "usage": {
+    "calls": 27,
+    "cache_hits": 0,
+    "prompt_tokens": 37690,
+    "completion_tokens": 20700
+  }
+}

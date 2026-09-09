@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"seating\",\"second_choice\":\"service_complaint\",\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks why extra legroom was denied, fitting seating intent; can be answered with policy without account access.\"}", "prompt_tokens": 1135, "completion_tokens": 225}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"unparseable\",\"rationale\":\"Message lacks clear request or recognizable intent\"}", "prompt_tokens": 1118, "completion_tokens": 94}

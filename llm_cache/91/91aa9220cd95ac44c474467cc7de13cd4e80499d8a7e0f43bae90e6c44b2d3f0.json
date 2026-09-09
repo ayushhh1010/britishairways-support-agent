@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_lost_damaged\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"property_irregularity\",\"rationale\":\"Item left on board requires a physical search and filing, needing escalation.\"}", "prompt_tokens": 1127, "completion_tokens": 128}

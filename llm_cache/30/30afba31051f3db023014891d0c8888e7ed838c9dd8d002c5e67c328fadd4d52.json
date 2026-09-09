@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Question about when luggage can be checked in at the airport\"}", "prompt_tokens": 1140, "completion_tokens": 94}

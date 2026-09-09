@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Customer wants to change a flight date and provides a booking reference, requiring account access.\"}", "prompt_tokens": 1167, "completion_tokens": 116}

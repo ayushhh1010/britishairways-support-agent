@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User asks about cancelling only the return leg and its cost, which is a booking change/cancel query not requiring account access.\"}", "prompt_tokens": 1121, "completion_tokens": 149}

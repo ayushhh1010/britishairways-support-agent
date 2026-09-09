@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":\"digital_technical\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Message could be about a disruption notification but also about a technical issue receiving the ticket email\"}", "prompt_tokens": 1125, "completion_tokens": 191}

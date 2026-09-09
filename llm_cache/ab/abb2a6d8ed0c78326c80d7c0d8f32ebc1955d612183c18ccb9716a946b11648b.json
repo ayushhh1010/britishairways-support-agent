@@ -1,0 +1,1 @@
+{"content": "{\n  \"intent\": \"praise_or_chatter\",\n  \"second_choice\": null,\n  \"ambiguous\": false,\n  \"action\": \"auto_handle\",\n  \"escalation_reason_id\": null,\n  \"rationale\": \"The message is a positive statement about using Avios with no question or support request.\"\n}", "prompt_tokens": 1068, "completion_tokens": 74}

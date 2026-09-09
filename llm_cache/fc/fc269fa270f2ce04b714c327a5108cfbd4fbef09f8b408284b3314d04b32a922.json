@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_policy\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks about allowed electronic devices on board, a policy question.\"}", "prompt_tokens": 1134, "completion_tokens": 105}

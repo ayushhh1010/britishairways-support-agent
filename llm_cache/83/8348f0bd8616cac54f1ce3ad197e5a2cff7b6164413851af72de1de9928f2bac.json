@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"contact_channel_request\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User asks how to reach support while expressing frustration, fitting contact request but also a complaint\"}", "prompt_tokens": 1124, "completion_tokens": 159}

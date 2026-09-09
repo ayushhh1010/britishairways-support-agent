@@ -1,0 +1,1 @@
+{"content": "{\n  \"intent\": \"praise_or_chatter\",\n  \"second_choice\": null,\n  \"ambiguous\": false,\n  \"action\": \"auto_handle\",\n  \"escalation_reason_id\": null,\n  \"rationale\": \"The message is a news headline or marketing content with no support request, question, or problem statement.\"\n}", "prompt_tokens": 1069, "completion_tokens": 77}

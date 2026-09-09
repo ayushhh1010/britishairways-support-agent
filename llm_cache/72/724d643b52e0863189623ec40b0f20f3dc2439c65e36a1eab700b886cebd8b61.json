@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"praise_or_chatter\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The customer is giving positive feedback, which maps to praise_or_chatter and requires no further handling.\"}", "prompt_tokens": 1123, "completion_tokens": 92}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User asks how to add an agent‑booked ticket to their bookings, a standard booking‑management query.\"}", "prompt_tokens": 1128, "completion_tokens": 176}

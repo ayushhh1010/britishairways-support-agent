@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"seating\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer wants seats together, which is a seating issue and can be answered with policy without account access\"}", "prompt_tokens": 1130, "completion_tokens": 121}

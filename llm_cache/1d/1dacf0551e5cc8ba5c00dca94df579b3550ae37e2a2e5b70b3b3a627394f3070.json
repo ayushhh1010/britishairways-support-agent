@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer expresses frustration with service, fitting service_complaint and no escalation criteria met\"}", "prompt_tokens": 1129, "completion_tokens": 124}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"loyalty_avios\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Customer requests retrieval of Avios from an old account, requiring account access.\"}", "prompt_tokens": 1164, "completion_tokens": 116}

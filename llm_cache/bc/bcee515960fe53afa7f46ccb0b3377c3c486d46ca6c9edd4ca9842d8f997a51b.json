@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks about food service, a service quality query that can be answered from policy\"}", "prompt_tokens": 1123, "completion_tokens": 187}

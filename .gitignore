@@ -1,0 +1,15 @@
+# Large raw inputs - regenerate with `make data && make prep`
+data/raw/
+data/interim/
+
+# Secrets
+.env
+
+# NOTE: data/processed/ and llm_cache/ are deliberately COMMITTED.
+# They are what makes `make repro` run offline in under 15 minutes.
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/

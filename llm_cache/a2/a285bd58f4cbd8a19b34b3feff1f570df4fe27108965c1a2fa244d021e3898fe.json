@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"compensation_refund\",\"second_choice\":\"flight_disruption\",\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"money_at_stake\",\"rationale\":\"Customer requests monetary compensation for delay, requiring account lookup and potential legal claim\"}", "prompt_tokens": 1133, "completion_tokens": 151}

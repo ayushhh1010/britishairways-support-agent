@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The message expresses a complaint about perceived class discrimination, fitting service_complaint and requires no account or monetary handling.\"}", "prompt_tokens": 1117, "completion_tokens": 152}

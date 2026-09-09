@@ -1,0 +1,73 @@
+# Single source of truth for the pipeline. Overridable via env vars (see .env.example).
+brand: British_Airways
+
+paths:
+  raw_csv: data/raw/twcs/twcs.csv
+  interim: data/interim
+  processed: data/processed
+  golden: golden
+  results: reports/results
+  cache: llm_cache
+
+llm:
+  provider: groq                      # groq | cerebras | ollama | openai_compatible
+  base_url: https://api.groq.com/openai/v1
+  # Provider reality (measured, see DECISIONS.md #22):
+  #   Groq free    200k tokens/DAY per model, rolling 24h. Works; needs 2 days.
+  #   Cerebras     published free limits require billing credits -> HTTP 402.
+  #   Local 8B     ~18 tok/s on a 4GB-VRAM laptop (CPU fallback) -> 20+ hours.
+  #   Mistral free 1B tokens/month, 60 RPM -> finishes in ~30 min if a key is set.
+  # Set MISTRAL_API_KEY and LLM_PROVIDER=mistral in .env to use the fast path.
+  # Generator and judge stay different model families so the judge never grades
+  # output from its own family (self-preference bias).
+  gen_model: openai/gpt-oss-120b      # OpenAI OSS  -> classify + triage + draft
+  judge_model: qwen/qwen3.6-27b       # Alibaba Qwen -> independent judge
+  judge_model_secondary: openai/gpt-oss-120b   # same family; ONLY to measure bias
+  prelabel_model_a: openai/gpt-oss-20b
+  prelabel_model_b: qwen/qwen3.6-27b
+  taxonomy_style: compact
+  reasoning_effort: low
+  temperature: 0.0
+  max_tokens: 600
+  request_timeout: 120
+  max_retries: 5
+  rpm_limit: 28
+  tpm_limit: 7000
+  concurrency: 3
+  model_limits:
+    default:
+      max_output: 2000
+      otpm: 20000
+    # qwen rejects any request whose max_tokens alone approaches OTPM=1000.
+    "qwen/qwen3.6-27b":
+      max_output: 400
+      otpm: 850
+    "qwen/qwen3.8-27b":
+      max_output: 400
+      otpm: 850
+
+sampling:
+  seed: 20260909
+  # Cases must have a real customer message and a real brand reply to be usable.
+  min_customer_chars: 30
+  max_customer_chars: 600
+  taxonomy_sample: 900                # messages clustered for taxonomy induction
+  golden_size: 220                    # hand-adjudicated evaluation set
+  retrieval_pool: 12000               # historical cases available to the retriever
+  holdout_exclude_golden: true
+
+retrieval:
+  k: 3
+  max_evidence_chars: 140
+  min_similarity: 0.08
+  vectorizer:
+    ngram_range: [1, 2]
+    min_df: 2
+    max_features: 60000
+    sublinear_tf: true
+
+triage:
+  # Escalating a solvable ticket costs agent time; auto-handling one that needed a
+  # human costs the customer. We weight the second error 3x in the headline metric.
+  false_auto_handle_cost: 3.0
+  false_escalate_cost: 1.0

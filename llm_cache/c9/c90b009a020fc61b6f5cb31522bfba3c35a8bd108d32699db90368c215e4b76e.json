@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"flight_disruption\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"property_irregularity\",\"rationale\":\"The message is a complaint that includes a lost bag, requiring escalation for property handling\"}", "prompt_tokens": 1130, "completion_tokens": 178}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"seating\",\"second_choice\":\"service_complaint\",\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer reports being downgraded from paid seats, which fits the seating intent; no escalation criteria are met.\"}", "prompt_tokens": 1134, "completion_tokens": 212}

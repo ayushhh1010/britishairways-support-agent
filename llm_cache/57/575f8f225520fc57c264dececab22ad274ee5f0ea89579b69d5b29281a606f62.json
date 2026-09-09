@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":null,\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Meal selection query relates to inflight service, best fits checkin_boarding but is ambiguous\"}", "prompt_tokens": 1115, "completion_tokens": 235}

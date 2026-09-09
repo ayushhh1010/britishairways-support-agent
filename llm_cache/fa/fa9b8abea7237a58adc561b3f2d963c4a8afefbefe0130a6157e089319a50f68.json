@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The message mentions a delay and expresses dissatisfaction, fitting both flight_disruption and service_complaint categories.\"}", "prompt_tokens": 1135, "completion_tokens": 224}

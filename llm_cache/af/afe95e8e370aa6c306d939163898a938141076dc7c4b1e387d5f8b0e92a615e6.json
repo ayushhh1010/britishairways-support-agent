@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":\"digital_technical\",\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User asks why app hasn't refreshed after a flight change, which is a booking change issue without need for account lookup.\"}", "prompt_tokens": 1139, "completion_tokens": 174}

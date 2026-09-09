@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"digital_technical\",\"second_choice\":\"booking_change_cancel\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"The issue could be a site problem applying a promo code (digital_technical) or a booking process question (booking_change_cancel).\"}", "prompt_tokens": 1134, "completion_tokens": 259}

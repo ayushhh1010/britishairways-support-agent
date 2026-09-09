@@ -1,0 +1,13 @@
+{
+  "golden_cases": 220,
+  "cases_with_zero_evidence": 0,
+  "mean_evidence_items": 4.0,
+  "top_similarity": {
+    "mean": 0.264,
+    "median": 0.247,
+    "p10": 0.186,
+    "p90": 0.363
+  },
+  "share_top_sim_below_0.15": 0.009,
+  "share_top_sim_above_0.40": 0.055
+}

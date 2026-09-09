@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"praise_or_chatter\",\"second_choice\":null,\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"unparseable\",\"rationale\":\"Message contains no clear support request, only a sarcastic comment.\"}", "prompt_tokens": 1128, "completion_tokens": 215}

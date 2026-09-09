@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"loyalty_avios\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks about maintaining silver status, which is a loyalty/Avios query.\"}", "prompt_tokens": 1130, "completion_tokens": 80}

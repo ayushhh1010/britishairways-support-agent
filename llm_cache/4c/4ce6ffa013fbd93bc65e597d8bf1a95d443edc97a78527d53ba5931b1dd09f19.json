@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"compensation_refund\",\"second_choice\":\"baggage_lost_damaged\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"money_at_stake\",\"rationale\":\"Customer seeks money for delay and reports damaged luggage, requiring account access and compensation handling\"}", "prompt_tokens": 1128, "completion_tokens": 143}

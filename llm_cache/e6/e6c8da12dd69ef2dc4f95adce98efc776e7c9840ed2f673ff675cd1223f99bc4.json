@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"booking_change_cancel\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer expresses dissatisfaction about cancelled flight affecting honeymoon, no request for money or account access.\"}", "prompt_tokens": 1130, "completion_tokens": 289}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer complains about credit card acceptance, answerable with public payment policy\"}", "prompt_tokens": 1120, "completion_tokens": 288}

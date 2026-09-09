@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"digital_technical\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User reports website/app outage preventing flight search, fitting digital_technical and no escalation criteria met.\"}", "prompt_tokens": 1125, "completion_tokens": 170}

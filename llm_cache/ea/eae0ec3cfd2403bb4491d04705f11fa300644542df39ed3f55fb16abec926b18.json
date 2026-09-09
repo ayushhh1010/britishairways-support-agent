@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_policy\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks about hand luggage size rules, which is a baggage policy query.\"}", "prompt_tokens": 1129, "completion_tokens": 93}

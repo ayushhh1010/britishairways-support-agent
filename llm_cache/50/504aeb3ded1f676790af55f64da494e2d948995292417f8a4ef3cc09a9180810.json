@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer complains about chronic delays, fitting flight_disruption without escalation triggers\"}", "prompt_tokens": 1120, "completion_tokens": 94}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"compensation_refund\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Customer mentions extra charges and seems to seek remedy, requiring account lookup.\"}", "prompt_tokens": 1130, "completion_tokens": 266}

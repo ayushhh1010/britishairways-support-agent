@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Providing a receipt requires accessing the customer's booking details.\"}", "prompt_tokens": 1134, "completion_tokens": 163}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"time_critical\",\"rationale\":\"The issue affects imminent check‑in for a flight departing soon, requiring urgent assistance.\"}", "prompt_tokens": 1133, "completion_tokens": 233}

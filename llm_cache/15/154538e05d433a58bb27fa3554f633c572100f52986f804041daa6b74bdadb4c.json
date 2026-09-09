@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"compensation_refund\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"money_at_stake\",\"rationale\":\"Customer complains about unprofessional service and mentions being up‑charged, indicating a money issue and a service complaint\"}", "prompt_tokens": 1130, "completion_tokens": 200}

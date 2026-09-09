@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"booking_change_cancel\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"Customer references a booking code and requests an upgrade, requiring account access.\"}", "prompt_tokens": 1124, "completion_tokens": 131}

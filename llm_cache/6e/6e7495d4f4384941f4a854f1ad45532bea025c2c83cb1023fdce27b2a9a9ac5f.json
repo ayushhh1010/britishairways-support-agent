@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"baggage_lost_damaged\",\"second_choice\":\"service_complaint\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"property_irregularity\",\"rationale\":\"Customer reports missing luggage and expresses complaint, requiring a bag trace and escalation.\"}", "prompt_tokens": 1137, "completion_tokens": 163}

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":\"digital_technical\",\"ambiguous\":false,\"action\":\"escalate\",\"escalation_reason_id\":\"needs_account_access\",\"rationale\":\"User is locked out of online check‑in and likely needs account access to resolve\"}", "prompt_tokens": 1145, "completion_tokens": 151}

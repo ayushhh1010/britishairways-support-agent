@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User expresses dissatisfaction about flight experience, fitting service_complaint and no escalation triggers.\"}", "prompt_tokens": 1125, "completion_tokens": 120}

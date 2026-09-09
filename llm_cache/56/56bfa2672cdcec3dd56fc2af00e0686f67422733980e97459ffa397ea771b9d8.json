@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"compensation_refund\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"money_at_stake\",\"rationale\":\"Customer complains about treatment and is demanding a refund, involving money.\"}", "prompt_tokens": 1132, "completion_tokens": 170}

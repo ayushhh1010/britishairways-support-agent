@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"contact_channel_request\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User asks for emergency phone number, fitting contact_channel_request and no escalation criteria met.\"}", "prompt_tokens": 1116, "completion_tokens": 102}

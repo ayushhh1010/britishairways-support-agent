@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Customer asks for status of a delayed flight, which is a flight_disruption query requiring only public info.\"}", "prompt_tokens": 1133, "completion_tokens": 127}

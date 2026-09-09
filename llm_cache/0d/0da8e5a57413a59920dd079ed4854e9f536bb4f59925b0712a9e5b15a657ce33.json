@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":null,\"ambiguous\":false,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"Question about timing of bag check‑in, falls under checkin_boarding and can be answered from policy without account access.\"}", "prompt_tokens": 1122, "completion_tokens": 114}

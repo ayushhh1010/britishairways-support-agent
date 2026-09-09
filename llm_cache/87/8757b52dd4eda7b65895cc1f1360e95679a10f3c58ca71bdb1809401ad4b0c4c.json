@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"service_complaint\",\"second_choice\":\"flight_disruption\",\"ambiguous\":true,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"rationale\":\"User complains about repeated late departures, fitting both service complaint and flight disruption categories.\"}", "prompt_tokens": 1127, "completion_tokens": 217}

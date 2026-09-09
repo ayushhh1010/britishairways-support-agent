@@ -1,0 +1,730 @@
+[
+  {
+    "cluster": 6,
+    "size": 898,
+    "top_terms": [
+      "flight",
+      "ba",
+      "time",
+      "help",
+      "lounge",
+      "thanks",
+      "just",
+      "service",
+      "today",
+      "flights",
+      "flying",
+      "thank"
+    ],
+    "exemplars": [
+      "Is there any lounge provision in FLL for our flight to LGW tomorrow?",
+      "Will be a miracle if my flight takes off on time - Hanover airport security and passport is the worst I’ve seen on any continent in mor than 400 flights - utter shambles and no way every person will make it to the gate i",
+      "Hey BA, got a flight coming up and passenger is BA Bronze but can't check in 7 days early as the norm. Can you help?",
+      "Another flight, another dose of crappy service; just once I'd like a flight which didn't have me starting a trip pissed-off",
+      "why am i only finding out now that my flight today is an hour later than the time it was when i booked it?? i've already booked a peak-fare train ticket to get to the airport for the original flight time, i've had no not",
+      "Thanks for response re Cancun lounge. What’s latest Club World check-in time with cases? Keen to minimise time at airport."
+    ]
+  },
+  {
+    "cluster": 17,
+    "size": 405,
+    "top_terms": [
+      "url",
+      "flight",
+      "url url",
+      "avgeek",
+      "thanks",
+      "flying",
+      "time",
+      "ba",
+      "way",
+      "747",
+      "good",
+      "like"
+    ],
+    "exemplars": [
+      "Helen, Thanassis and myself are off to #Turin #Italy for #VNC17 with . Bon Voyage! <url>",
+      "Well played , well played. 👌🏻 <url>",
+      "Very impressive yet again by <url>",
+      "Well done ! This is ace! 💜 <url>",
+      "am I flying with your or??? <url>",
+      "On long passwords and <url> <url>"
+    ]
+  },
+  {
+    "cluster": 11,
+    "size": 150,
+    "top_terms": [
+      "staff",
+      "delay",
+      "plane",
+      "flight",
+      "hour",
+      "flight delay",
+      "ba",
+      "ground",
+      "time",
+      "stuck",
+      "rude",
+      "url"
+    ],
+    "exemplars": [
+      ": flight BA 7024, What a joke! Delay, bus transfer to Pisa, now no plane, no info, no time, NO BA STAFF, NO COMMUNICATION!",
+      "5 hour delay due to technical probs with the plane won't help as operated the flight and now IB blame ATC. 😡",
+      "You texted & emailed me about baggage restrictions on the way out. Why no communication about the delay? Two hour delay on 1 hour flight?!",
+      "#britishairways #BA295 - again a flight delay of more than 2 hours - it is getting on my nerves...",
+      "one of the most chaotic gate boarding experiences ever for BA1399 ground staff have clearly never boarded a plane before",
+      "how do I get compensation for almost a 3 hour flight delay today? Missed two meetings and an event."
+    ]
+  },
+  {
+    "cluster": 8,
+    "size": 132,
+    "top_terms": [
+      "lhr",
+      "flight",
+      "url",
+      "ba",
+      "jfk",
+      "today",
+      "thanks",
+      "flight lhr",
+      "avgeek",
+      "service",
+      "flying",
+      "lounge"
+    ],
+    "exemplars": [
+      "flying high on our way back to LHR from Bologna ✈ 🌝 <url>",
+      "Dear I’m no expert but I reckon that could do with some superglue! #a320 ba480 lhr -> bcr <url>",
+      "Flight with Thank you 🙏 #DUS #LHR <url>",
+      "BA253 for me today if you fancy #flightstalking LHR-NAS-GCM #avgeek #B777 ✈️☀️🌴🌴☀️",
+      "how will Trumps new rules affect my travel on Sunday (BA NCL-LHR, AA LHR-JFK) all booked through BA",
+      "Why did I receive a survey about my flight from LHR-ORD but not for the 1 right before, MCT-LHR?"
+    ]
+  },
+  {
+    "cluster": 18,
+    "size": 132,
+    "top_terms": [
+      "booking",
+      "hi",
+      "help",
+      "manage",
+      "manage booking",
+      "app",
+      "flight",
+      "tried",
+      "booking reference",
+      "online",
+      "reference",
+      "avios"
+    ],
+    "exemplars": [
+      "I am wanting to cancel my booking today with booking reference as follow : Booking reference 31863504 Please help",
+      "hi there, I’m a novice at booking companion flights as never done before. Can anyone help me?",
+      "hey there could someone contact me please about a booking....",
+      "I'm trying to manage my booking online, but each time I go to error page. Booking reference: J8EJU9 need to change my return to 3-12-2017",
+      "Hi how do I find my flight booking if I’ve deleted my confirmation email with the booking reference??Help phone is useless",
+      "I cant get to my return flight on booking code (booking reference: RRKT8P). Thanks for help in advance, Sven Lah"
+    ]
+  },
+  {
+    "cluster": 10,
+    "size": 126,
+    "top_terms": [
+      "hi",
+      "dm",
+      "thanks",
+      "services",
+      "flight",
+      "customer services",
+      "customer",
+      "help",
+      "hi ba",
+      "ba",
+      "contact",
+      "follow"
+    ],
+    "exemplars": [
+      "hi, can i DM you with a baggage enquiry please ☺️",
+      "hi, just landed in Lisbon on flight BA0502 and left by Kindle on board 😬 could customer services DM me please?",
+      "hi please can you DM me. I have a question about a flight transfer",
+      "Hi, how can I get help in spanish?",
+      "hi could you follow me so I could dm you regarding our flight",
+      "hi there, I left my headset behind on flight BA0826 to Dublin this evening. Do you know if they have been found thanks?"
+    ]
+  },
+  {
+    "cluster": 23,
+    "size": 125,
+    "top_terms": [
+      "website",
+      "book",
+      "trying book",
+      "trying",
+      "book flight",
+      "flights",
+      "flight",
+      "book flights",
+      "new website",
+      "avios",
+      "url",
+      "new"
+    ],
+    "exemplars": [
+      "trying to book flight on the website and only getting as far as getting a price and the website crashes. Tried 2 devices.",
+      "I'm trying to book a flight through your website but I'm having some difficulties... how can I get help? Thanks",
+      "is there a problem with your website? Been trying to book flights for over an hour on laptop & your app, neither working 😰",
+      "have been trying to book 5 multi city flights for the last 2 days on your website and won't give me correct prices. Awful website",
+      "hi I am trying to book flight plus hotel to Dubai for 1 passenger only but in the website it's not letting me choose the option??? <url>",
+      "Help! Trying to book a flight for someone else and there's a bug on your website that won't let me proceed when .. (1/?)"
+    ]
+  },
+  {
+    "cluster": 1,
+    "size": 113,
+    "top_terms": [
+      "check",
+      "online",
+      "check online",
+      "online check",
+      "tomorrow",
+      "help",
+      "flight",
+      "check flight",
+      "flight tomorrow",
+      "trying",
+      "airport",
+      "having"
+    ],
+    "exemplars": [
+      "your online check-in will not allow me to check-in online, with no explanation? #passengerfrusration",
+      "can you tell me why. Can't online check in for flight ba2553 from Heraklion tomorrow?",
+      "not able to check in online. Any help?",
+      "is your online check-in completely down? I can't check in on my laptop or the app. It's maddening.",
+      "forgot to check in bags on check in online, can I do this at the airport?",
+      "Hi! I'm trying to check in online for my flight tomorrow. It's 24 hours to my flight, but I can't seem to check in. Help?"
+    ]
+  },
+  {
+    "cluster": 12,
+    "size": 98,
+    "top_terms": [
+      "seat",
+      "change seat",
+      "change",
+      "flight",
+      "help",
+      "hi",
+      "row",
+      "booking",
+      "check",
+      "pay",
+      "thanks",
+      "lost"
+    ],
+    "exemplars": [
+      "BA 1312 seat 12 E left purse in seat in front xx please help her",
+      "do you ever have seat sales? Booking a trip for two to London!",
+      "Hi, I can’t change my seat in the app or website, it just recycles to a previous page and seat when I select a new seat. Anything you can do?",
+      "My thanks to Oliver for his help in explain the seat layout of the flight I’m taking but also sorting out the wife’s seat",
+      "Does seat 39J on a 777 recline? It's the back row double seat",
+      "hello, I did the online check in but I want to change the seat. How to contact u to change the seat??"
+    ]
+  },
+  {
+    "cluster": 15,
+    "size": 98,
+    "top_terms": [
+      "luggage",
+      "hand luggage",
+      "hand",
+      "luggage allowance",
+      "checked",
+      "check",
+      "hi",
+      "allowance",
+      "carry",
+      "flight",
+      "hold",
+      "flying"
+    ],
+    "exemplars": [
+      "Can I take sealed boxes of biscuits/chocolates in my luggage?",
+      "hi, am I able to take a unopened kitchen hand blender on board with my hand luggage?",
+      "hi are these Louis Vuitton bags ok for hand luggage? I can't find a tape measure anywhere😭 <url>",
+      "Could I take some picture frames in a hand luggage flying from Heatrow to Sao Paulo??",
+      "Bought a hand-luggage only fare with . My luggage had to be put on the hold. Naturally, I didn't have a lock on it. My purse went missing. 😩😔",
+      "if I need to carry medication in my hand luggage and it’s a 60g bottle of gel. What do I need to do"
+    ]
+  },
+  {
+    "cluster": 9,
+    "size": 97,
+    "top_terms": [
+      "london",
+      "flight london",
+      "flight",
+      "url",
+      "ba",
+      "thanks",
+      "flying",
+      "london flight",
+      "flying london",
+      "flights",
+      "london heathrow",
+      "heathrow"
+    ],
+    "exemplars": [
+      "#AllTheLinesEurope now on 2 London 2 Alicante then Cartagena-Alicante-Cuenca-Madrid <url>",
+      "when is flight BA 0969 landing in London?",
+      "A gorgeous morning on our flight to . I ❤️ #London <url>",
+      "will you in London Victoria station again tomorrow?",
+      "and back to #London ✈️ - Missing my family already 😥",
+      "So just left London on the train. 4:30pm. I was supposed to leave London this morning at 10am. Thanks . Morons."
+    ]
+  },
+  {
+    "cluster": 27,
+    "size": 96,
+    "top_terms": [
+      "customer service",
+      "customer",
+      "service",
+      "terrible",
+      "flight",
+      "ba",
+      "worst",
+      "poor",
+      "getting",
+      "team",
+      "experience",
+      "shocking"
+    ],
+    "exemplars": [
+      "Faith restored thanks customer service",
+      "it is a shame your customer service is a myth only...",
+      "Customer service has been horrific! Please have someone contact us. We are getting nowhere!",
+      "how can I get in touch with your customer service?",
+      "stinks! ... and customer service sucks!",
+      "still no reply , is this your idea of customer service"
+    ]
+  },
+  {
+    "cluster": 4,
+    "size": 94,
+    "top_terms": [
+      "delayed",
+      "flight",
+      "hours",
+      "delayed hours",
+      "flight delayed",
+      "delayed flight",
+      "connection",
+      "time",
+      "plane",
+      "flights delayed",
+      "waiting",
+      "flights"
+    ],
+    "exemplars": [
+      "greetings. pl settled our claim of mis connection & delayed plane. due to previous flight delayed misconnectin",
+      "flight BA6241 is delayed indefinitely with no explanation. Khaniyinabise ngoba ndifuna uhamba",
+      "any idea why my flight home from Hamburg is delayed 2.5 hours? every flight recently with you has been delayed #frustration",
+      "it's been a month since our flight was delayed... filed an #EUDelayClaim immediatly but still no response ? #whatstheholdup",
+      "any updates on why 0490 is delayed?",
+      "For the first time ever I'm early and checked in, only for to sms after checkin the fligt is delayed by 2 whole hours😭😔😌😡"
+    ]
+  },
+  {
+    "cluster": 21,
+    "size": 94,
+    "top_terms": [
+      "heathrow",
+      "mins",
+      "late",
+      "flight",
+      "15",
+      "time",
+      "url",
+      "t5",
+      "today",
+      "delay",
+      "best",
+      "tonight"
+    ],
+    "exemplars": [
+      "not the best performance at JFK flight BA113 from Heathrow",
+      "Back at T5! Thank you #britishairways 🇬🇧 @ Heathrow… <url>",
+      "Hi your service from Stuttgart to Heathrow tonight has been absolutely shocking from start to finish and LATE",
+      "Dear . How can a flight be both 15 mins late and on-time? #SchrodingersFlight <url>",
+      "3 hours and 20 mins delay? From Heathrow to Athens? And nobody contacted me. Where can I get a compensation?",
+      "another enjoyable flight back to Heathrow form Dubai. <url>"
+    ]
+  },
+  {
+    "cluster": 13,
+    "size": 92,
+    "top_terms": [
+      "cancelled",
+      "flight",
+      "cancelled flight",
+      "flight cancelled",
+      "refund",
+      "flights",
+      "tomorrow cancelled",
+      "tomorrow",
+      "ba",
+      "help",
+      "told",
+      "refund cancelled"
+    ],
+    "exemplars": [
+      "Struck again by the thoroughly unreliable #britishairways Randomly cancelled flight & bust website. #poor",
+      "please explain why I am still waiting for any compensation for my cancelled flight due to your error in may?!?!",
+      "hi. what’s happening with the cancelled flight BA7017 from Bristol?",
+      "hello. Can I reclaim my avious points as I've cancelled my flight?",
+      "Just when you think couldn’t get any more ridiculous, I’m now being told that over 5 weeks after they cancelled my flight for lack of crew, I will get my fare back, but won’t tell me when, but my bag travelled on the can",
+      "cancelled flight. Crap customer service. Will never book with them again. Cancelled for commercial reasons. Flight not for 7 months!! Overseas call centre. Get back to basics."
+    ]
+  },
+  {
+    "cluster": 20,
+    "size": 91,
+    "top_terms": [
+      "great",
+      "great flight",
+      "great service",
+      "flight",
+      "url",
+      "service",
+      "thanks",
+      "thank",
+      "crew",
+      "today",
+      "thanks great",
+      "good"
+    ],
+    "exemplars": [
+      "Great flight 👍🏻#praiseirarelygive",
+      "Anther great flight with today to Orlando. Great service, and very friendly staff as always #paxex #avgeek <url>",
+      "Great flight home with and typical great service from all the crew on BA34. Cheers",
+      "Another great flight from JFK on the 178. Sophie was great and kept my wine topped up!!! Food tasty as well!! <url>",
+      "BA005 08-10-2017, late out of LHR but the crew made up for that. Great flight. Thank you.",
+      "Thanks for a great flight to #Paris. #travel"
+    ]
+  },
+  {
+    "cluster": 24,
+    "size": 89,
+    "top_terms": [
+      "seats",
+      "flight",
+      "booked",
+      "seats flight",
+      "paid",
+      "help",
+      "book seats",
+      "check",
+      "change",
+      "url",
+      "window",
+      "reserve seats"
+    ],
+    "exemplars": [
+      "We can't sit together for our flight as no seats,I can't check in, but you're still selling seats.Better not be downgrades!",
+      "how do I contact u to upgrade my seats ?",
+      ", I can't check in for flights! Window seats, please. NUFOZH",
+      "paid £137 for seats and when we checked in they were changed! Not good enough",
+      "hi, tried to check in 24h before my flight, logged in and there are only 3 crappy seats available. Are you opening more seats during the day or everyone else chose theirs 5s after checking opened?",
+      "are our seats guaranteed on traveller+ if we don't check in until the day of flight? Ie we don't reserve seats beforehand"
+    ]
+  },
+  {
+    "cluster": 5,
+    "size": 85,
+    "top_terms": [
+      "bag",
+      "bag drop",
+      "drop",
+      "check",
+      "check bag",
+      "checked bag",
+      "checked",
+      "does",
+      "ve",
+      "lost",
+      "ba",
+      "need"
+    ],
+    "exemplars": [
+      "#evaair where is my bag!!!!!!!!!!!!!!!!!!!!!!!!!",
+      "I prefer the amenity bag to the bulky, plasticy bag from because the Ba Bag takes up less space but has all I need <url>",
+      "When you've been made to check your bag in and are sitting next to this 🙄 <url>",
+      "good grief BA. Now your PAX even have to sort their own bag tags out at T5 bag drop off. Gone too far! 👎🏼",
+      "you need some more staff at your bag drop terminal 5 - over half an hour wait just to drop a bag - no to flying BA again",
+      "shambles. Why do online check in when the bag drop queue is the longest with only one desk servicing it? <url>"
+    ]
+  },
+  {
+    "cluster": 19,
+    "size": 81,
+    "top_terms": [
+      "points",
+      "avios",
+      "executive",
+      "club",
+      "executive club",
+      "account",
+      "tier",
+      "avios points",
+      "tier points",
+      "exec",
+      "exec club",
+      "hi"
+    ],
+    "exemplars": [
+      "Hi. I have 76,947 Avios points, transferred to my BA Executive Club account, but apparently I have no Tier points. My membership number is 18369567. Can you help?",
+      "what are Tier Points and what is the difference between Avios & Tier Points?",
+      "Hi, do you get Avios points on seat bookings? Thanks",
+      "how long does it take for Tier points to show on my account please?",
+      "I have a status problem with my Executive Club account. Can you help?",
+      "The flight I booked with my AVIOS points disappeared from my accournt"
+    ]
+  },
+  {
+    "cluster": 14,
+    "size": 72,
+    "top_terms": [
+      "change",
+      "change flight",
+      "flight",
+      "need change",
+      "trying change",
+      "help",
+      "trying",
+      "booking",
+      "need",
+      "ticket",
+      "try",
+      "change booking"
+    ],
+    "exemplars": [
+      "help I need to change a flight but I can’t",
+      "hI! I NEED TO CHANGE MY FLIGHT BUT THE PAGE HAS A PROBLEM!!!!",
+      "Hello, please help? I'm needing to change my flight tomorrow but every time I try, your system crashes right at the end? It's an international flight so need to change it ASAP please. Thanks!",
+      "Trying to change my flight for but website isn't working. Can you help?",
+      "since 2 days i try to change my booking online, i choose a new date, then a new flight\"Review your flights\", and when i push \"continue\", \"We're gathering your new flight details.\" and then i always receive this error mes",
+      "I'm trying to change my flight time through manage my booking but keep getting hit with an error message?"
+    ]
+  },
+  {
+    "cluster": 3,
+    "size": 71,
+    "top_terms": [
+      "class",
+      "business class",
+      "business",
+      "url",
+      "economy",
+      "economy class",
+      "just",
+      "upgrade",
+      "flying",
+      "service",
+      "1st",
+      "class service"
+    ],
+    "exemplars": [
+      "introduces riff-raff class. <url>",
+      "business class, nice and clean 😬😬 <url>",
+      "Flew out to Dubai on Saturday, free business class upgrade. About to fly home, free business class upgrade again! Thanks, !",
+      "Just spent $5,000 on a business class ticket and wants another $150 to reserve a seat. NO class in BA business class.",
+      "LAX 🛫 LHR and business class for once Where is the vodka luge",
+      "no change on business class ticket sneakily labelled in fine print 😡 Time to take my Gold business to <url>"
+    ]
+  },
+  {
+    "cluster": 25,
+    "size": 60,
+    "top_terms": [
+      "baggage",
+      "allowance",
+      "baggage allowance",
+      "checked",
+      "checked baggage",
+      "hand baggage",
+      "check",
+      "hand",
+      "ba",
+      "just",
+      "claim",
+      "flight"
+    ],
+    "exemplars": [
+      "How can we tell if we have checked in with baggage allowance?",
+      "Hi I have two questions, what’s the baggage allowance for Ghana, and what’s the baggage allowance for Germany. I was wondering for both hand luggage and Check in? Thanks",
+      "can you pls give me your email as I have been overcharged on the extra baggage allowance-",
+      "If the e-ticket for BLR - JFK via London says baggage allowed is 2 pieces - does it include cabin baggage as well or is it just check-in? Also, limit is 23kgs per piece or total? Checked the baggage allowance on your web",
+      "LHR to NICE club out and economy back with Avios. What is my baggage allowance be as it’s two classes? Thanks :-)",
+      "morning - I’m travelling to CPT at weekend - can I take golf clubs and case if both fall are under baggage allowance?"
+    ]
+  },
+  {
+    "cluster": 26,
+    "size": 55,
+    "top_terms": [
+      "going",
+      "ba",
+      "better",
+      "going new",
+      "url",
+      "response",
+      "lhr",
+      "tell",
+      "just",
+      "going miss",
+      "new",
+      "terminal"
+    ],
+    "exemplars": [
+      "G-VIIA out of LHR to HOU this afternoon #OxfordshireSkies #BA 21 yrs old and still going strong #Boeing777 <url>",
+      "Loved to see at saftey comedy commercial. Keep going #TeamBa ❤️😂",
+      "Just not cricket . With all that's going on in the world economics dictates that we should consider a full paying client <url>",
+      "I'm due to get the BA0054 from JNB to LHR at 9.50pm this evening. Is the fly still going as it's now delayed?",
+      "what are the A380 flight numbers going in and out of Boston? I can’t seem to location that anywhere.",
+      "What's going on? Worked OK yesterday. <url>"
+    ]
+  },
+  {
+    "cluster": 7,
+    "size": 54,
+    "top_terms": [
+      "crew",
+      "cabin crew",
+      "cabin",
+      "fantastic",
+      "thank",
+      "today",
+      "lovely",
+      "flight",
+      "service",
+      "thanks",
+      "pilot",
+      "fantastic crew"
+    ],
+    "exemplars": [
+      ", flight 279 to SJC delayed . Cabin crew finds us in Starbucks and politely explain delay & mingle. Awesome crew.",
+      "Great flight to Vegas; cabin crew were very good, thanks",
+      ", I'm an applicant for your Cabin Crew but, I've hit a roadblock. Is it true that I can't be taller than 6'1? (I'm 6'4)",
+      "Enjoying myself with the cabin crew at tonight's event! <url>",
+      "we are trying to contact someone at BA regarding Cabin Crew uniform please can you help?",
+      "Wonderful service on - Thank You to the cabin crew on BA138 & BA285 on the 17th Oct 2017 <url>"
+    ]
+  },
+  {
+    "cluster": 16,
+    "size": 52,
+    "top_terms": [
+      "week",
+      "flights week",
+      "week ago",
+      "time week",
+      "flying",
+      "flights",
+      "second",
+      "ago",
+      "views",
+      "time",
+      "travel",
+      "url"
+    ],
+    "exemplars": [
+      "- week 8 update: 8th week in a row delayed...I see a trend",
+      "I am flying with my 11 week old next week, what is your policy on Breastfeeding on your planes?",
+      "Spectacular views from my flight BA2688 to Genoa last week. #wanderlust <url>",
+      "still haven’t received my bag and it’s been almost a week...when I was told it wouldn’t take a week.",
+      "Yet again another disappointing experience with 🙄 and the second issue in less than a week!",
+      "your App has not been working properly for the last week!"
+    ]
+  },
+  {
+    "cluster": 2,
+    "size": 50,
+    "top_terms": [
+      "safety",
+      "video",
+      "safety video",
+      "new safety",
+      "new",
+      "flight safety",
+      "flight",
+      "love",
+      "loved",
+      "funny",
+      "genius",
+      "inflight safety"
+    ],
+    "exemplars": [
+      ". has the best safety video, hands down",
+      "Enjoyed new safety video in conjunction with",
+      "New safety video is genius. Gandalf, Mr Bean and Chabuddy G, what a combo 👌",
+      "OMG! new safety video is star studded, hilarious, informative & supports 👍🏾👏🏾👌🏾🤣 <url>",
+      ".'s Safety Video is the best thing ever! 👏👏",
+      "I may have said this before, but I do like the new safety video!"
+    ]
+  },
+  {
+    "cluster": 0,
+    "size": 47,
+    "top_terms": [
+      "number",
+      "phone number",
+      "flight number",
+      "phone",
+      "contact number",
+      "flight",
+      "contact",
+      "booking",
+      "ba",
+      "change",
+      "club number",
+      "number email"
+    ],
+    "exemplars": [
+      "what’s your support phone number.",
+      "do you have a phone number for when you have a problem on holiday",
+      "I am some avios and don't have the ticket number it's requesting. Can you help me claim them please?",
+      "Here a question for - when you call the help number 0344 493 0787 then select 1 and 1 to ask about a flight you are told you've called the wrong number. Why?",
+      "Trying to update APIS but cannot refresh as the passport number on your records is old and to enter the new number I cannot enter the sire as it asks for the old number which I do not have",
+      "any way to change my executive club number to my American Airlines number on manage my booking?"
+    ]
+  },
+  {
+    "cluster": 22,
+    "size": 43,
+    "top_terms": [
+      "airways",
+      "british airways",
+      "british",
+      "url",
+      "url url",
+      "flight",
+      "ba",
+      "seats",
+      "passengers cheap",
+      "airways board",
+      "cheap seats",
+      "ba url"
+    ],
+    "exemplars": [
+      "Get. Me. Home. ✈️ (@ British Airways Lounge in Mississauga, ON) <url>",
+      "“BA Magic” Campaign from British Airways - <url> <url>",
+      "British Airways launches new route to Kefalonia – Avios seats now bookable <url> <url>",
+      "I locked my self out of the British Airways website and now I can’t see if they have made me gold 😩",
+      "First ever flight with British Airways and I must say I’m very impressed BA93 #Canada <url>",
+      "any chance of a reply british airways we are due to fly in 12 hours!!"
+    ]
+  }
+]

@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"checkin_boarding\",\"second_choice\":\"digital_technical\",\"ambiguous\":true,\"action\":\"escalate\",\"escalation_reason_id\":\"time_critical\",\"rationale\":\"Customer cannot check‑in online due to a system error and is stranded, requiring urgent assistance.\"}", "prompt_tokens": 1141, "completion_tokens": 167}
