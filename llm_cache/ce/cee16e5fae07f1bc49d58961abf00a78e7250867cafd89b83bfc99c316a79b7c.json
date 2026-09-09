@@ -1,0 +1,1 @@
+{"content": "{\"intent\":\"flight_disruption\",\"intent_confidence\":0.96,\"action\":\"auto_handle\",\"escalation_reason_id\":null,\"escalation_rationale\":\"\",\"reply\":\"We’re sorry your flight was delayed by 24 hours. Please DM us with your booking details so we can look into it further.\",\"evidence_used\":[3]}", "prompt_tokens": 1542, "completion_tokens": 183}
