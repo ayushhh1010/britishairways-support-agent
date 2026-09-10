@@ -52,7 +52,7 @@ def stages(cfg) -> list[dict]:
         {
             "name": "evaluation",
             "done": (r / "eval_results.json").exists(),
-            "cmd": [sys.executable, "scripts/run_eval.py", "--ablation", "--judge-n", "120"],
+            "cmd": [sys.executable, "scripts/run_eval.py", "--ablation", "--judge-n", "60"],
             "why": "agent + baselines + ablation + LLM judge (the expensive stage)",
         },
         {

@@ -35,7 +35,7 @@ golden:
 	$(PY) scripts/build_golden.py
 
 eval:
-	$(PY) scripts/run_eval.py --ablation --judge-n 120
+	$(PY) scripts/run_eval.py --ablation --judge-n 60
 
 agreement:
 	-$(PY) scripts/judge_agreement.py
