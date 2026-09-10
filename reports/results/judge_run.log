@@ -1,0 +1,6 @@
+golden set: 220 cases, 13 intents present
+agent:   0%|          | 0/9 [00:00<?, ?it/s]agent: 100%|██████████| 9/9 [00:00<00:00, 86.04it/s]agent: 100%|██████████| 9/9 [00:00<00:00, 86.04it/s]
+ablation(no-RAG):   0%|          | 0/9 [00:00<?, ?it/s]ablation(no-RAG): 100%|██████████| 9/9 [00:00<00:00, 127.17it/s]
+judge:   0%|          | 0/30 [00:00<?, ?it/s]judge:  57%|█████▋    | 17/30 [00:02<00:02,  5.72it/s]judge:  67%|██████▋   | 20/30 [01:03<00:41,  4.18s/it]judge:  70%|███████   | 21/30 [03:06<02:11, 14.58s/it]judge:  80%|████████  | 24/30 [05:02<02:07, 21.20s/it]judge:  90%|█████████ | 27/30 [06:00<01:01, 20.62s/it]judge:  97%|█████████▋| 29/30 [07:00<00:22, 22.60s/it]judge: 100%|██████████| 30/30 [07:00<00:00, 14.01s/it]
+
+STOPPED during judging: 200/240 verdicts completed and cached. Re-run `make eval` after the quota window refills.

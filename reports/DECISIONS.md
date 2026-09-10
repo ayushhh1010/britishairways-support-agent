@@ -200,3 +200,50 @@ the model pre-labels. This turns pre-labels into an independent second opinion r
 than an anchor, and makes the reported human-vs-model agreement a real comparison
 instead of a measure of how often a human clicked "accept". It also cost more time,
 which is why the option existed to do it the other way.
+
+**25. The judge runs on a different PROVIDER, not just a different family.**
+The generator is Gemini (Google); the judge is `gpt-oss-120b` on Groq. They share
+neither training lineage nor inference stack, which is stronger evidence of
+independence than a same-provider family split.
+
+This was forced rather than chosen. Gemma (Google's other family) was the original
+cross-family judge and **timed out on 93% of batched requests** - 112 of 120 verdicts
+failed. Qwen on Groq failed differently: it returned empty generations, because its
+thinking tokens exceed the output budget its own per-minute cap permits. gpt-oss was
+the third attempt and the one that works: 8 graded replies in 3 seconds, zero errors.
+
+**26. A failed judge call is missing data, not a score of 1.**
+`aggregate()` originally averaged the fail-safe `1/1/1/1` placeholder into the means.
+The broken Gemma run therefore produced a table that *looked* plausible - every system
+clustered around 1.1 - and only one thing gave it away: **real human BA replies scored
+1.13/5**. Human agents do not write 1/5 replies. That single implausible cell is what
+exposed a 93% failure rate hiding behind a well-formatted table.
+
+The fix is to exclude errored verdicts and report `n` and `errors` per system. The
+lesson is the one this report's "misleading number" section is about: a broken
+pipeline produces confident numbers, not obvious errors, and the only defence is a
+cell whose correct value you already know. `historical` exists in the judge run partly
+as that control.
+
+**27. Batching the agent - reversing an earlier decision under a hard constraint.**
+DECISIONS.md #21 said the agent under test would never be batched, because batching
+lets a model see other tickets while deciding one. That held until the only viable
+free provider turned out to allow **20 requests per day per model**, which makes 220
+single-case requests impossible, not merely expensive.
+
+So the agent now processes 25 tickets per request: 220 cases in 9 requests. Each
+ticket carries its own retrieved evidence and the prompt demands independent handling,
+but the contamination risk is real and unmeasured. It is listed in the report's
+"misleading" section, and the batched-vs-single agreement check that would bound it is
+the second item in "what I'd do next". Recording this as a reversal rather than
+quietly rewriting #21: the original reasoning was sound, the constraint changed, and
+the honest response was to take the compromise and disclose it.
+
+**28. Rate limits belong to the provider that owns the model.**
+When the judge moved to a second provider it inherited the generator's limiter
+settings, including an `otpm` copied from a Qwen-specific constraint. That throttled a
+3-second judge to one request per minute - indistinguishable from a hang until
+`py-spy` showed every worker parked inside my own limiter rather than in the network.
+Per-provider limits are now configured separately (`judge_rpm_limit`, `judge_tpm_limit`,
+`judge_otpm`). Twice in this project a self-inflicted throttle looked exactly like a
+provider outage; stack-dumping the live process was the only thing that told them apart.

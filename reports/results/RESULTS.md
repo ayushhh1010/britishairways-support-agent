@@ -22,9 +22,18 @@
 
 A deflection here is a system claiming it can handle a case and then not answering it. The judge rubric does not punish this; that is the point.
 
-| system | auto-handled | answered | deflected |
-|---|---|---|---|
-| `B0_trivial` | 0 | - | - |
-| `B1_simple` | 151 | 82.8% | 17.2% |
-| `agent` | 103 | 99.0% | 1.0% |
-| `agent_no_retrieval` | 93 | 100.0% | 0.0% |
+| system | auto-handled | answered | deflected | of which empty |
+|---|---|---|---|---|
+| `B0_trivial` | 0 | - | - | - |
+| `B1_simple` | 151 | 82.8% | 17.2% | 0 |
+| `agent` | 103 | 99.0% | 1.0% | 0 |
+| `agent_no_retrieval` | 93 | 0.0% | 100.0% | 93 |
+
+## Reply quality (LLM judge: `openai/gpt-oss-120b`)
+
+| system | grounded | helpful | tone | safety | mean | acceptable | beats historical |
+|---|---|---|---|---|---|---|---|
+| `B0_trivial` | 3.63 | 2.28 | 3.59 | 4.80 | 3.58 | 30.4% | 17.4% |
+| `B1_simple` | 2.57 | 2.02 | 3.33 | 5.00 | 3.23 | 25.5% | 9.8% |
+| `agent` | 4.20 | 3.06 | 3.94 | 4.76 | 3.99 | 60.0% | 24.0% |
+| `historical` | 4.69 | 3.38 | 4.20 | 5.00 | 4.32 | 62.2% | 0.0% |

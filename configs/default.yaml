@@ -21,7 +21,20 @@ llm:
   # Generator is Gemini, judge is GEMMA -- a different model family on the same key,
   # so the judge never grades output from its own family (self-preference bias).
   gen_model: gemini-3.5-flash-lite         # Google Gemini -> classify + triage + draft
-  judge_model: gemma-4-31b-it         # Google Gemma (different family) -> judge
+  # The judge runs on a DIFFERENT PROVIDER as well as a different family. Gemma was
+  # the original cross-family judge but timed out on 93% of batched requests
+  # (DECISIONS.md #25); Groq's Qwen is fast, and cross-provider independence is
+  # stronger evidence than cross-family alone.
+  judge_provider: groq
+  judge_base_url: https://api.groq.com/openai/v1
+  judge_model: openai/gpt-oss-120b    # OpenAI-OSS on Groq -> independent judge
+                                      # (qwen produced empty generations: its thinking
+                                      #  tokens exceed the budget its OTPM cap allows)
+  judge_timeout: 90                   # Groq is fast; a long timeout only hides failure
+  judge_rpm_limit: 25                 # the JUDGE provider's limits, not the generator's
+  judge_tpm_limit: 7000
+  judge_otpm: 20000
+  judge_max_output: 2500              # must cover hidden thinking tokens + the JSON
   judge_model_secondary: gemini-3.5-flash   # same family as generator; measures bias
   prelabel_model_a: gemini-3.5-flash
   prelabel_model_b: gemma-4-31b-it
@@ -33,11 +46,12 @@ llm:
   reasoning_effort: low               # gpt-oss only; ignored elsewhere
   temperature: 0.0
   max_tokens: 2000              # must cover hidden thinking tokens + the JSON
-  request_timeout: 120
-  max_retries: 8      # 503 'high demand' spikes need patience, not more requests
+  request_timeout: 240   # Gemma is slow on multi-item batches
+  max_retries: 3      # fail fast: 8 retries x 240s timeout turns slow into hung
   rpm_limit: 10
   tpm_limit: 200000
   concurrency: 2
+  judge_group_size: 8                 # Gemma omits items above ~8 per request
   group_size: 25                      # tickets/request; 220 cases -> 9 requests.
                                       # Free tier is 20 requests/DAY per model, so
                                       # agent(9) + ablation(9) must fit inside it.

@@ -68,10 +68,38 @@ def _clip(value: object, lo: int = 1, hi: int = 5) -> int:
 
 
 class ReplyJudge:
+    """Grades replies on a judge model that may live on a different provider.
+
+    Independence is the point: the judge should share neither a model family nor an
+    inference stack with the generator. When `judge_provider` differs from the main
+    provider, this builds its own client against that endpoint rather than reusing
+    the generator's.
+    """
+
     def __init__(self, client: LLMClient | None = None, cfg: dict | None = None) -> None:
         self.cfg = cfg or load_config()
-        self.client = client or LLMClient(self.cfg)
-        self.model = self.cfg["llm"]["judge_model"]
+        lc = self.cfg["llm"]
+        self.model = lc["judge_model"]
+
+        jp = lc.get("judge_provider")
+        if jp and jp != lc["provider"]:
+            jcfg = {**self.cfg, "llm": {**lc}}
+            jcfg["llm"]["provider"] = jp
+            jcfg["llm"]["base_url"] = lc.get("judge_base_url", lc["base_url"])
+            jcfg["llm"]["request_timeout"] = int(lc.get("judge_timeout", 90))
+            # Rate limits belong to the JUDGE's provider, not the generator's. Copying
+            # the generator's caps across throttled a 3-second judge to one request per
+            # minute, which looks exactly like a hang.
+            jcfg["llm"]["rpm_limit"] = int(lc.get("judge_rpm_limit", 25))
+            jcfg["llm"]["tpm_limit"] = int(lc.get("judge_tpm_limit", 7000))
+            cap = int(lc.get("judge_max_output", 2500))
+            jcfg["llm"]["model_limits"] = {
+                **(lc.get("model_limits") or {}),
+                self.model: {"max_output": cap, "otpm": int(lc.get("judge_otpm", 20000))},
+            }
+            self.client = LLMClient(jcfg)
+        else:
+            self.client = client or LLMClient(self.cfg)
 
     def judge_one(
         self,
@@ -218,12 +246,21 @@ def aggregate(verdicts: Sequence[JudgeVerdict]) -> dict:
         rows = [v for v in verdicts if v.system == sysname]
         if not rows:
             continue
+        # A failed judge call is MISSING DATA, not a score of 1. Averaging the
+        # fail-safe 1/1/1/1 placeholder in drags every system towards 1.0 and makes
+        # real human replies look terrible -- which is exactly how a broken judge run
+        # produced a plausible-looking table on a previous attempt.
+        scored = [r for r in rows if not r.error]
+        n_err = len(rows) - len(scored)
+        if not scored:
+            out[sysname] = {"n": 0, "errors": n_err, "note": "no successful judgements"}
+            continue
         out[sysname] = {
-            "n": len(rows),
-            **{d: round(float(np.mean([getattr(r, d) for r in rows])), 3) for d in DIMENSIONS},
-            "mean_score": round(float(np.mean([r.mean_score for r in rows])), 3),
-            "acceptable_rate": round(float(np.mean([r.acceptable for r in rows])), 4),
-            "beats_historical_rate": round(float(np.mean([r.beats_historical for r in rows])), 4),
-            "errors": sum(1 for r in rows if r.error),
+            "n": len(scored),
+            **{d: round(float(np.mean([getattr(r, d) for r in scored])), 3) for d in DIMENSIONS},
+            "mean_score": round(float(np.mean([r.mean_score for r in scored])), 3),
+            "acceptable_rate": round(float(np.mean([r.acceptable for r in scored])), 4),
+            "beats_historical_rate": round(float(np.mean([r.beats_historical for r in scored])), 4),
+            "errors": n_err,
         }
     return out

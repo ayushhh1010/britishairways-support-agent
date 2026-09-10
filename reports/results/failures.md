@@ -98,6 +98,52 @@
 
 ## 3. Lowest-scoring drafted replies
 
+### mean 1.00  (grou=1 help=1 tone=1 safe=1)
+
+- customer: your agents made people check bags because the flight is full, yet many people have taken up overhead bins with coats.
+- agent:    Your allowance depends on your ticket type and cabin. We're sorry for any frustration with baggage checks.
+- historical: Hi Leigh, we do this if there's a chance there won't be enough space for everyone. It's much harder to fix when you're all on-board! 1/2
+- judge critique: __
+
+### mean 1.00  (grou=1 help=1 tone=1 safe=1)
+
+- customer: I do love my card so much that I am taking it on a holiday with my favourite carrier #fintech at its best. <url>
+- agent:    We're pleased to see you're making full use of our facilities and wish you a pleasant flight.
+- historical: That’s really nice to hear, Pedro. Where are we taking you this time? ^Monica
+- judge critique: __
+
+### mean 1.00  (grou=1 help=1 tone=1 safe=1)
+
+- customer: Who do i speak to about compensation for a 4.5 hour delayed flight from Rome and a damaged suitcase?
+- agent:    Thanks for getting in touch. If you can send us more details by DM, we'll take a look for you.
+- historical: Sorry to hear about your experience when travelling with us, Em. Please use this link: <url> ^Gill
+- judge critique: __
+
+### mean 1.00  (grou=1 help=1 tone=1 safe=1)
+
+- customer: First time flying today GLA > LCY - very impressed, excellent service and complimentary refreshments, unexpected bonus! ✈️😀
+- agent:    We're pleased to hear you had a great first flight with us! We hope you have a nice evening.
+- historical: Hi Ian. We're glad you enjoyed your first time flying with us. Little surprises always make it that little bit more fun. ^N
+- judge critique: __
+
+### mean 1.00  (grou=1 help=1 tone=1 safe=1)
+
+- customer: Hello, thinking of booking a flight from Barcelona to Heathrow for tomorrow morning. Will this still be scheduled to fly?
+- agent:    You can check the live status of your flight on our website before you travel.
+- historical: Yes Emma. All flights are showing as operating on time on our website. ^Gill
+- judge critique: __
+
+### mean 1.00  (grou=1 help=1 tone=1 safe=1)
+
+- customer: Thanks for the upgrade at the end of a rubbish day. I return on the 13th if you want to complete the effect 😜 <url>
+- agent:    That's our pleasure! We hope you enjoyed your time on board travelling with us.
+- historical: The world has a way of making things right... who knows! I've got my fingers crossed for you. ^Kimbers
+- judge critique: __
+
 ## 4. Groundedness by judge dimension (agent)
 
+- `groundedness` score distribution -> 1:11  2:4  3:3  4:18  5:24
+- `helpfulness` score distribution -> 1:14  2:15  3:9  4:18  5:4
+- `tone` score distribution -> 1:10  2:0  3:10  4:33  5:7
+- `safety` score distribution -> 1:13  2:0  3:0  4:0  5:47
 

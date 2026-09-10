@@ -327,7 +327,8 @@
       "answer_rate": {
         "n_auto_handled": 0,
         "answer_rate": NaN,
-        "deflection_rate": NaN
+        "deflection_rate": NaN,
+        "n_empty": 0
       }
     },
     "B1_simple": {
@@ -655,6 +656,7 @@
       },
       "answer_rate": {
         "n_auto_handled": 151,
+        "n_empty": 0,
         "deflection_rate": 0.1722,
         "answer_rate": 0.8278
       }
@@ -984,6 +986,7 @@
       },
       "answer_rate": {
         "n_auto_handled": 103,
+        "n_empty": 0,
         "deflection_rate": 0.0097,
         "answer_rate": 0.9903
       }
@@ -1313,16 +1316,64 @@
       },
       "answer_rate": {
         "n_auto_handled": 93,
-        "deflection_rate": 0.0,
-        "answer_rate": 1.0
+        "n_empty": 93,
+        "deflection_rate": 1.0,
+        "answer_rate": 0.0
       }
     }
   },
+  "judge": {
+    "B0_trivial": {
+      "n": 46,
+      "groundedness": 3.63,
+      "helpfulness": 2.283,
+      "tone": 3.587,
+      "safety": 4.804,
+      "mean_score": 3.576,
+      "acceptable_rate": 0.3043,
+      "beats_historical_rate": 0.1739,
+      "errors": 14
+    },
+    "B1_simple": {
+      "n": 51,
+      "groundedness": 2.569,
+      "helpfulness": 2.02,
+      "tone": 3.333,
+      "safety": 5.0,
+      "mean_score": 3.23,
+      "acceptable_rate": 0.2549,
+      "beats_historical_rate": 0.098,
+      "errors": 9
+    },
+    "agent": {
+      "n": 50,
+      "groundedness": 4.2,
+      "helpfulness": 3.06,
+      "tone": 3.94,
+      "safety": 4.76,
+      "mean_score": 3.99,
+      "acceptable_rate": 0.6,
+      "beats_historical_rate": 0.24,
+      "errors": 10
+    },
+    "historical": {
+      "n": 45,
+      "groundedness": 4.689,
+      "helpfulness": 3.378,
+      "tone": 4.2,
+      "safety": 5.0,
+      "mean_score": 4.317,
+      "acceptable_rate": 0.6222,
+      "beats_historical_rate": 0.0,
+      "errors": 15
+    }
+  },
+  "judge_model": "openai/gpt-oss-120b",
   "usage": {
-    "calls": 18,
-    "cache_hits": 0,
-    "prompt_tokens": 89450,
-    "completion_tokens": 40089
+    "calls": 0,
+    "cache_hits": 18,
+    "prompt_tokens": 0,
+    "completion_tokens": 0
   },
   "gen_model": "gemini-3.5-flash-lite"
 }

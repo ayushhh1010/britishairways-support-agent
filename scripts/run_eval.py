@@ -199,7 +199,8 @@ def main() -> None:
 
         # Shuffle so a request mixes systems; the judge sees no system labels.
         random.Random(cfg["sampling"]["seed"]).shuffle(jobs)
-        verdicts = judge.judge_batched(jobs, group_size=20, desc="judge")
+        jg = int(cfg["llm"].get("judge_group_size", 8))
+        verdicts = judge.judge_batched(jobs, group_size=jg, desc="judge")
         jblocked = sum(1 for v in verdicts if (v.error or "").startswith("QUOTA"))
         if jblocked and not args.allow_partial:
             print(

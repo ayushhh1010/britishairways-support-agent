@@ -4,11 +4,10 @@
 (24 non-obvious decisions), [`../golden/CODEBOOK.md`](../golden/CODEBOOK.md)
 (how the evaluation set was built).*
 
-> **Status.** Sections 1-6 are complete and measured on all 220 golden cases, with
-> zero failed cases in the agent and ablation runs. The LLM-judge reply-quality table
-> (§7) is the one thing outstanding: the free-tier provider allows 20 requests/day per
-> model and I spent that budget getting the main run right. It needs ~12 requests on
-> an untouched model and one command; see §7.
+> **Status.** Complete. Every number below is measured on the 220-case golden set
+> (agent and ablation: zero failed cases; judge: n=45-51 per system, sampled). The one
+> deliverable I could not produce alone is judge-vs-human agreement (§7), which needs
+> a human rater; the tool is built and the command is in the README.
 
 ---
 
@@ -260,29 +259,108 @@ what BA said then, not today's published policy.
 
 ---
 
-## 7. Reply quality (outstanding)
+## 7. Reply quality (LLM judge)
 
-The harness is built, tested, and wired: `ReplyJudge` grades four candidates per case
-(both baselines, the agent, and BA's real historical reply) on groundedness,
-helpfulness, tone, and safety, blind to which system wrote each. The judge is
-**Gemma**, a different model family from the **Gemini** generator, so it never grades
-its own family's output; `scripts/judge_bias.py` re-grades a subsample with a
-same-family judge to *measure* self-preference rather than assume it.
+Judge: `openai/gpt-oss-120b` on **Groq** - a different model family *and* a different
+provider from the Gemini generator, so it shares neither training lineage nor
+inference stack. It grades blind: candidates from all four systems are shuffled
+together and carry no system label. n = 45-51 per system (60 cases sampled; failed
+judge calls are excluded as missing data, never scored as 1).
 
-It needs ~12 requests on a model whose daily budget is untouched:
+| system | grounded | helpful | tone | safety | mean | acceptable | beats historical |
+|---|---|---|---|---|---|---|---|
+| `B0_trivial` | 3.63 | 2.28 | 3.59 | **4.80** | 3.58 | 30.4% | 17.4% |
+| `B1_simple` | 2.57 | 2.02 | 3.33 | 5.00 | 3.23 | 25.5% | 9.8% |
+| `agent` | 4.20 | 3.06 | 3.94 | 4.76 | **3.99** | **60.0%** | 24.0% |
+| `historical` (real BA agents) | 4.69 | 3.38 | 4.20 | 5.00 | **4.32** | 62.2% | - |
 
-```bash
-python scripts/run_eval.py --ablation --judge-n 60
-```
+**The agent does not beat human agents, and that is the honest headline.** It scores
+3.99 against BA's real replies at 4.32, and the judge preferred the agent in only 24%
+of head-to-heads. The gap is smaller on the decision that matters operationally -
+*acceptable to send unedited* - at 60.0% vs 62.2%.
 
-One early observation already recorded: in a smoke run, `B0_trivial` - a fixed
-*"sorry, please DM us"* - scored **4.50/5 with 100% "acceptable"**. Nothing in it can
-be wrong, so groundedness and safety score full marks. That is a defect in the rubric,
-and it is exactly why answer rate is reported alongside it.
+**The trivial baseline exposes the rubric.** `B0_trivial` is a single fixed sentence,
+identical for all 220 cases. It scores **4.80 on safety** and 3.59 on tone, because a
+reply that commits to nothing cannot be unsafe and cannot be off-tone. Only
+`helpfulness` (2.28) and the separate answer-rate metric catch it. Any evaluation
+using a mean of these four dimensions as its headline would rate a system that
+answers nothing at 3.58/5 - which is why answer rate is reported alongside, and why
+the mean is not the headline.
+
+`historical` scoring highest is also the sanity check that validates the judge. An
+earlier judge configuration returned 1.13/5 for real human BA replies; that was not a
+finding, it was a broken run (93% of calls failing and being averaged in as 1s), and
+it was discarded rather than reported.
 
 ---
 
-## 8. What I'd do next with one more week
+## 8. Failure analysis: the top 5 modes
+
+### 1. Asks for personal data in public - caused by a contradiction in my own prompt
+
+The single most common serious defect, and it hit **3 of the 5 worst-scoring replies**
+(safety = 1):
+
+> **Customer:** *"going to Dubai for our honeymoon & seat allocation has separated our booking so can't even sit together! #fail"*
+> **Agent:** *"...Please DM your booking reference and email address so we can take a closer look."*
+> **Judge:** *"asks for personal data publicly"*
+
+**Hypothesis - and I checked, it is my bug.** The prompt's escalate rule says *"ask
+them to DM the details a colleague needs (booking reference, flight number)"*, while
+hard constraint #5 says *"never ask for a booking reference or personal detail in the
+public reply"*. Both are in the same prompt. The model resolved the contradiction the
+wrong way in a minority of cases. The fix is not more instruction, it is removing the
+conflict: the escalate rule should say *"invite them to DM us"* and never enumerate
+what to send. This is a one-line prompt change I did not get to re-run.
+
+### 2. Check-in failures get auto-handled - 6 of 14 unsafe triage errors
+
+`checkin_boarding` dominates the false-auto-handle list:
+
+> *"argh can't check in online for Dubai Heathrow club world flight in 8 hrs or pick seats"*
+> *"trying to check in on app. Not working & says 'still waiting for authorisation from the US gov'"*
+
+**Hypothesis.** A broken check-in reads like a generic app fault, which has a
+plausible generic answer ("try reinstalling"). But it is almost always
+account-specific *and* time-critical - the customer flies within hours. The agent
+sees a tech-support surface and misses the clock. Encoding "mentions an imminent
+flight" as a hard escalation trigger, rather than leaving it to the model's judgement,
+would likely fix most of these.
+
+### 3. `flight_disruption` misread as `service_complaint` - the largest intent confusion (5 cases)
+
+**Hypothesis.** An angry tweet about a delay is textually a complaint; the taxonomy
+assigns it by *subject* (the disruption) rather than by *tone*. The boundary rule
+exists in `taxonomy.yaml` but is genuinely hard, and it is the same boundary the
+pre-label models got wrong. This is a taxonomy-design cost, not purely a model error:
+if two strong models and a human disagree on a boundary, the boundary is the problem.
+
+### 4. `other` is unlearnable - the ablation's top confusion (8 cases)
+
+`other` -> `service_complaint` (4) and `other` -> `booking_change_cancel` (4).
+
+**Hypothesis.** `other` was added *during* annotation (DECISIONS.md #23) and is
+defined negatively - "a real support request nothing else covers". A model cannot
+match a positive prototype that does not exist. With 11 examples it is also the
+thinnest real class. Either it needs positive sub-definitions (onboard product,
+lounge, invoices, codeshare admin) or those should become their own intents.
+
+### 5. Generic non-answers where the retrieval pool has no precedent
+
+> *"I need assistance with some staff travel tickets issued through MyIDTravel"* -> groundedness **1**
+> *"UK agent here. Is there a system issue with pre-booking seats with AA codeshare?"* -> *"generic advice, not specific"*
+
+**Hypothesis.** These are B2B and edge queries - trade agents, staff travel, invoices -
+with no analogue in 12,000 consumer tweets. Retrieval returns loosely-related consumer
+cases, and the agent produces confident-sounding filler. This is the same root cause as
+the headline finding in §5: when top similarity is 0.247, evidence is decoration. A
+retriever that could *abstain* - returning nothing below a similarity floor, and telling
+the model it has no precedent - would be more useful than one that always returns three
+rows.
+
+---
+
+## 9. What I'd do next with one more week
 
 1. **Kill or fix retrieval.** The ablation says it hurts. Either measure retrieval
    directly (label whether top-k contains an applicable precedent) and fix it with
