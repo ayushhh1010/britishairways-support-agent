@@ -1,4 +1,4 @@
-# British Airways support agent — Hiver SDE Intern take-home
+# British Airways support agent 
 
 An AI first-line support agent for **British Airways**, built from the
 [Customer Support on Twitter](https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter)
