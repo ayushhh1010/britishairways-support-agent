@@ -254,7 +254,13 @@ instructs independent handling and each ticket carries its own evidence, but the
 *can* see other tickets. I did not get to run the batched-vs-single agreement check
 that would bound this; it is the first thing I would do next.
 
-**7. 2017 data.** Policies and fees have changed, so groundedness is measured against
+**7. The reply-quality scores rest on an unreliable instrument.** Two independent
+judges agree on `acceptable` at kappa 0.08 - chance. The aggregate ordering is stable,
+but no individual verdict in §7 should be treated as measured. And a same-family judge
+would have inflated the agent by +0.63 points, which is roughly the entire gap between
+the agent and human agents.
+
+**8. 2017 data.** Policies and fees have changed, so groundedness is measured against
 what BA said then, not today's published policy.
 
 ---
@@ -291,6 +297,57 @@ the mean is not the headline.
 earlier judge configuration returned 1.13/5 for real human BA replies; that was not a
 finding, it was a broken run (93% of calls failing and being averaged in as 1s), and
 it was discarded rather than reported.
+
+### How much should you trust that table? Less than it looks.
+
+I could not obtain independent human ratings (see below), so I measured what I could:
+**judge-vs-judge reliability**. A second judge - `gemini-3.5-flash`, on Google's stack -
+re-graded 30 cases already graded by the primary `gpt-oss-120b` judge on Groq.
+
+**Self-preference bias is real and now quantified.** The probe judge shares a model
+family with the generator; the primary does not.
+
+| | primary judge (Groq) | probe judge (generator's family) | gap |
+|---|---|---|---|
+| `agent` replies | 4.058 | 4.567 | **+0.51** |
+| `historical` (control) | 4.421 | 4.303 | -0.12 |
+
+The probe is not simply a softer marker: it grades the *historical* control slightly
+*lower*. It is specifically generous to output from its own family, by
+**+0.628 points on a 5-point scale**. Had I judged with a same-family model - the
+convenient default - the agent's 3.99 would have read closer to 4.6, and the gap to
+human replies would have vanished as an artefact.
+
+**Per-case reliability is poor.** On the binary decision that would actually gate an
+auto-send:
+
+| | agent (n=26) | historical (n=19) |
+|---|---|---|
+| `acceptable` raw agreement | 61.5% | 52.6% |
+| `acceptable` Cohen's kappa | **0.08** (slight) | **-0.02** (worse than chance) |
+| groundedness QWK | 0.42 | 0.61 |
+| helpfulness QWK | 0.38 | 0.62 |
+| tone QWK | 0.30 | 0.29 |
+| safety QWK | **-0.04** | undefined (near-constant) |
+
+Two independent judges agree on *whether a reply is sendable* at essentially chance
+level. Mean absolute difference per case is 0.72 points for the agent.
+
+**What survives this.** Aggregate *ordering* is stable - both judges rank `historical`
+highest and both separate the agent from the baselines - so the §7 ranking is probably
+sound. What does **not** survive is any per-case claim: "this reply is acceptable" is
+not a verdict this judge can currently support, and the 60.0% acceptable-rate should be
+read as indicative, not measured. A production auto-send gate could not be built on it.
+
+**This is reliability, not validity.** Two judges agreeing would not make them right.
+The real validation is judge-vs-human agreement, which needs a human rater:
+`python label.py replies --annotator <name> --limit 40`, then
+`python scripts/judge_agreement.py`. The harness is built and tested; the ratings are
+not collected. I attempted to have them collected, discarded the first nine because
+they contained internal contradictions (all-1 scores marked sendable), and chose to
+report this gap rather than supply the ratings myself - I wrote both the judge rubric
+and the agent prompts, so my ratings would have validated my own instrument against
+itself.
 
 ---
 

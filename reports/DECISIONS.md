@@ -247,3 +247,29 @@ settings, including an `otpm` copied from a Qwen-specific constraint. That throt
 Per-provider limits are now configured separately (`judge_rpm_limit`, `judge_tpm_limit`,
 `judge_otpm`). Twice in this project a self-inflicted throttle looked exactly like a
 provider outage; stack-dumping the live process was the only thing that told them apart.
+
+**29. I declined to supply the human ratings myself, and reported the gap instead.**
+Deliverable 3 asks for evidence that the LLM judge agrees with a human. I wrote the
+judge's rubric and the agent's prompts, so ratings from me would validate an instrument
+against its own author. A first attempt at collecting independent ratings produced nine
+that contained internal contradictions - all-1 scores marked "would send to a customer" -
+partly because a bug in my labelling tool ended the session on a stray keypress instead
+of re-prompting. I fixed the tool, discarded those nine rather than let them become
+ground truth, and left the requirement openly unmet.
+
+In its place I measured what could be measured honestly: judge-vs-judge reliability,
+which bounds **reliability** but not **validity**. It is stated as a substitute, not as
+the thing that was asked for.
+
+**30. The self-preference measurement paid for itself.**
+Decision #13 asserted that a same-family judge inflates scores. #29's probe measured it:
+**+0.628 points on a 5-point scale**, isolated from general leniency by a historical
+control the probe actually grades *lower*. That is close to the entire gap between the
+agent (3.99) and real human agents (4.32) - so the "different family, different
+provider" choice is the difference between reporting that the agent approaches human
+quality and wrongly reporting that it matches it.
+
+The same probe also showed the judge is unreliable per case: kappa 0.08 on the
+accept/reject decision, and -0.04 QWK on safety. Aggregate ordering survives; individual
+verdicts do not. An evaluation harness that could not detect this would have shipped a
+confident 60% acceptable-rate with nothing behind it.

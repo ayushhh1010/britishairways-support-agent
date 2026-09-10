@@ -67,19 +67,32 @@ Three findings:
 
 ---
 
-## Known gap
+## Known gap, and what was measured instead
 
-**Judge-vs-human agreement is not measured.** The assignment asks for it; the harness
-is built but needs a human rater:
+**Judge-vs-human agreement is not measured.** The assignment asks for it. The harness
+is built and tested but needs a human rater:
 
 ```bash
-python -m support_agent.labeling.cli replies --annotator <name> --limit 40
+python label.py replies --annotator <name> --limit 40
 python scripts/judge_agreement.py
 ```
 
-Until that is run, the reply-quality column rests on an unvalidated instrument. That
-caveat is not hypothetical: two earlier judge configurations produced confidently
-wrong output, one of which is documented in `DECISIONS.md` #26.
+I did not supply those ratings myself: I wrote both the judge's rubric and the agent's
+prompts, so my ratings would validate my own instrument against itself.
+
+**What I could measure is judge-vs-judge reliability, and it is poor.** A second judge
+on a different stack re-graded 30 cases (`reports/results/judge_bias.json`):
+
+- **Self-preference bias: +0.628 points on a 5-point scale.** A judge sharing the
+  generator's model family rates agent replies +0.51 above the independent judge, while
+  rating the *historical* control -0.12 *below* it. It is not a softer marker; it
+  favours its own family. Using the convenient same-family default would have erased
+  the entire measured gap between the agent and human agents.
+- **Per-case agreement is chance-level.** On `acceptable` - the decision that would gate
+  an auto-send - Cohen's kappa is **0.08** (agent) and **-0.02** (historical).
+
+Aggregate *ordering* is stable across both judges, so the §7 ranking is probably sound.
+Individual verdicts are not. Report §7 says this in full.
 
 ---
 

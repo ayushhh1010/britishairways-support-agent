@@ -190,18 +190,29 @@ def rate_replies(args: argparse.Namespace) -> None:
         scores = {}
         bad = False
         for dim in DIMENSIONS:
-            raw = _prompt(f"  {dim:<13}[1-5] (q=quit): ")
-            if raw.lower() == "q":
-                bad = True
+            # Re-prompt on bad input. Previously a stray Enter ended the whole
+            # session, silently discarding the rest of a 40-item run.
+            while True:
+                raw = _prompt(f"  {dim:<13}[1-5] (q=quit): ")
+                if raw.lower() == "q":
+                    bad = True
+                    break
+                if raw.isdigit() and 1 <= int(raw) <= 5:
+                    scores[dim] = int(raw)
+                    break
+                print("    ! enter a number 1-5, or q to quit")
+            if bad:
                 break
-            if not (raw.isdigit() and 1 <= int(raw) <= 5):
-                print("  ! invalid, skipping case")
-                bad = True
-                break
-            scores[dim] = int(raw)
         if bad:
             break
-        acc = _prompt("  send as-is to a real customer? [y/n]: ").lower().startswith("y")
+        # Validate explicitly: this used to treat any non-"y" input as "no", so a
+        # mistyped "5" was silently recorded as an unacceptable reply.
+        while True:
+            araw = _prompt("  send as-is to a real customer? [y/n]: ").strip().lower()
+            if araw in ("y", "yes", "n", "no"):
+                acc = araw.startswith("y")
+                break
+            print("    ! answer y or n")
         _append(out_path, {
             "key": str(job["key"]), "thread_id": job["thread_id"], "annotator": args.annotator,
             **scores, "acceptable": acc,
@@ -218,7 +229,11 @@ def status(_: argparse.Namespace) -> None:
         print("no golden/ directory yet")
         return
     for p in sorted(d.glob("*.jsonl")):
-        print(f"  {p.name:<34} {len(_load_done(p)):>4} records")
+        # Count lines, not `_load_done` keys: files written by other stages (e.g.
+        # golden_set.jsonl) have no `key` field, so keying would collapse every row
+        # onto None and report "1 record" for a 220-row file.
+        n = sum(1 for line in p.read_text(encoding="utf-8").splitlines() if line.strip())
+        print(f"  {p.name:<34} {n:>4} records")
 
 
 def main(argv: list[str] | None = None) -> None:

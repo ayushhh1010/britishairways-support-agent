@@ -1,0 +1,59 @@
+{
+  "primary_judge": "openai/gpt-oss-120b",
+  "primary_provider": "groq",
+  "probe_judge": "gemini-3.5-flash",
+  "probe_provider": "gemini",
+  "n_requested": 30,
+  "probe_failures": 8,
+  "caveat": "Judge-vs-judge agreement measures RELIABILITY, not validity. Two judges can agree and both be wrong. This does not replace human ratings.",
+  "per_system": {
+    "agent": {
+      "n": 26,
+      "primary_mean": 4.058,
+      "probe_mean": 4.567,
+      "probe_minus_primary": 0.51,
+      "mean_absolute_difference": 0.721,
+      "acceptable_agreement": {
+        "n": 26,
+        "raw_agreement": 0.6154,
+        "raw_agreement_ci95": [
+          0.4231,
+          0.8077
+        ],
+        "cohens_kappa": 0.0845,
+        "kappa_interpretation": "slight"
+      },
+      "per_dimension_qwk": {
+        "groundedness": 0.4186,
+        "helpfulness": 0.381,
+        "tone": 0.3042,
+        "safety": -0.0354
+      }
+    },
+    "historical": {
+      "n": 19,
+      "primary_mean": 4.421,
+      "probe_mean": 4.303,
+      "probe_minus_primary": -0.118,
+      "mean_absolute_difference": 0.487,
+      "acceptable_agreement": {
+        "n": 19,
+        "raw_agreement": 0.5263,
+        "raw_agreement_ci95": [
+          0.3158,
+          0.7368
+        ],
+        "cohens_kappa": -0.024,
+        "kappa_interpretation": "worse than chance"
+      },
+      "per_dimension_qwk": {
+        "groundedness": 0.6051,
+        "helpfulness": 0.6163,
+        "tone": 0.2923,
+        "safety": NaN
+      }
+    }
+  },
+  "self_preference_estimate": 0.628,
+  "self_preference_interpretation": "Gap on agent replies minus gap on historical replies. The probe judge shares a family with the generator; the primary does not. Positive means the probe favours its own family's output beyond its general leniency."
+}
